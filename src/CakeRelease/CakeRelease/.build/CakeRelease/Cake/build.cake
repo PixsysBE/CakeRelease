@@ -1,7 +1,9 @@
 ﻿#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Figlet&version=2.0.1"
 #addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Npx&version=1.7.0"
 #addin "nuget:?package=Cake.Git&version=4.0.0"
+// #addin nuget:?package=Newtonsoft.Json&version=13.0.1
 
+// using Newtonsoft.Json;
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 ///////////////////////////////////////////////////////////////////////////////
@@ -12,6 +14,11 @@ var projectName = Argument<string>("projectName", "Undefined");
 var publishPackageToNugetSource = Argument<bool>("publishPackageToNugetSource", false);
 var rootPath = Argument<string>("rootPath", "Undefined");
 var projectPath = Argument<string>("projectPath", "Undefined");
+//var dataJson = Argument("data", "{}");
+var packageId = Argument<string>("packageId", "");
+var packageTitle = Argument<string>("packageTitle", "");
+var packageDescription = Argument<string>("packageDescription", "");
+var packageAuthors = Argument<string>("packageAuthors", "");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -55,6 +62,22 @@ Action<NpxSettings> requiredSemanticVersionPackages = settings => settings
     .AddPackage("@semantic-release/git@10.0.1")
     .AddPackage("@semantic-release/exec@6.0.3");
 
+// var packageId = "";
+// var packageTitle = "";
+// var packageDescription = "";
+// var packageAuthors = "";
+//////////////////////////////////////////////////////////////////////
+// CLASSES
+//////////////////////////////////////////////////////////////////////
+
+// public class PackageData
+// {
+//     public string Id { get; set; }
+//     public string Title { get; set; }
+//     public string Description { get; set; }
+//     public string Authors { get; set; }
+// }
+
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
@@ -88,6 +111,7 @@ Task("Default")
 
 Task("Build")
     .IsDependentOn("Run dotnet --info")
+    //.IsDependentOn("Parse-Json")
     .IsDependentOn("Clean")
     .IsDependentOn("Get next semantic version number")
     .IsDependentOn("Build solution")
@@ -114,6 +138,23 @@ Task("Clean")
     CleanDirectory(objDir);
 });
 
+// Task("Parse-Json")
+//     .Does(() =>
+// {
+//     Information ("Data Json: {0}", dataJson);
+//     // Convert JSON string to VersionInfo object
+//     var versionInfo = JsonConvert.DeserializeObject<PackageData>(dataJson);
+//     if (versionInfo == null)
+//     {
+//         Error("Failed to parse JSON data.");
+//         return;
+//     }
+
+//     var packageId = versionInfo.Id;
+//     var packageTitle = versionInfo.Title;
+//     var packageDescription = versionInfo.Description;
+//     var packageAuthors = versionInfo.Authors;
+// });
 /*
 Normally this task should only run based on the 'shouldRelease' condition,
 however sometimes you want to run this locally to preview the next sematic version
@@ -200,12 +241,35 @@ Task("Package")
         if(projectDirectory.EndsWith("Tests")) continue;
 
         Information("Packaging project {0} v{1}", project.GetFilenameWithoutExtension(), releaseVersion);
-
+        Context.Environment.WorkingDirectory = Directory(projectDirectory);
         var assemblyVersion = $"{releaseVersion}.0";
+
+        // Transform nuspec file
+        var nuspecFile = File(".nuspec");
+        Information("Updating version in nuspec file to {0}", assemblyVersion);
+
+        // Define the namespace
+        var xmlPokeSettings = new XmlPokeSettings {
+            Namespaces = new Dictionary<string, string> {
+                { "ns", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" }
+            }
+        };
+        // Use XmlPoke to update the version element
+        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:id", packageId, xmlPokeSettings);
+        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:title", packageTitle, xmlPokeSettings);
+        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:description", packageDescription, xmlPokeSettings);
+        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:authors", packageAuthors, xmlPokeSettings);
+        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:version", assemblyVersion, xmlPokeSettings);
 
         DotNetPack(project.FullPath, new DotNetPackSettings {
             Configuration = configuration,
             OutputDirectory = artifactsDir,
+            // https://learn.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-using-a-nuspec
+            ArgumentCustomization = pag =>
+            {
+                pag.Append("-p:NuspecFile=.nuspec");
+                return pag;
+            },
             NoBuild = true,
             MSBuildSettings = new DotNetMSBuildSettings()
                 .WithProperty("Version", assemblyVersion)

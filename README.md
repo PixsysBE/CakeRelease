@@ -1,5 +1,7 @@
 ﻿# Cake Release
 
+> WARNING : This package is using a copy of itself to create its own releases ! Make sure you are looking at the code located under src/CakeRelease/CakeRelease
+
 **Cake Release** is a combination of [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4) scripts, [Cake Build](https://cakebuild.net/) script and [Semantic Release](https://github.com/semantic-release), automating build and deployment workflows of your .NET project.
 
 It is based on [Michael Wolfenden](https://medium.com/@michael.wolfenden/)'s article "[Simplified versioning and publishing for .NET libraries](https://medium.com/@michael.wolfenden/simplified-versioning-and-publishing-for-net-libraries-a28e5e740fa6)".
@@ -35,7 +37,7 @@ In order to use **Cake Release** you need:
 
 ### GitHub
 
-The [GitHub access token](https://github.com/settings/tokens) you need to create will need the following permissions:
+The [GitHub access token](https://github.com/settings/tokens) you need to create will have the following permissions:
 
 ```
 [repo]

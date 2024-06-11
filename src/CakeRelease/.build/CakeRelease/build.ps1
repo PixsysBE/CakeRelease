@@ -50,10 +50,10 @@ if ([string]::IsNullOrWhiteSpace($csprojPath)) {
 }
 
 #Ensure csproj has all the properties needed
-$ensureScriptOutputScript = Join-Path -Path $PSScriptRoot -ChildPath ".\Powershell\bootstrapRelease.ps1"
-$ensureScriptOutput = & $ensureScriptOutputScript -rootPath $rootPath -csprojPath $csprojPath
+$bootstrapScript = Join-Path -Path $PSScriptRoot -ChildPath ".\Powershell\bootstrapRelease.ps1"
+$bootstrapScriptOutput = & $bootstrapScript -rootPath $rootPath -csprojPath $csprojPath
 
-if($ensureScriptOutput -eq 1) { exit 1 }
+if($bootstrapScriptOutput -eq 1) { exit 1 }
 
 #Create Semantic release config file based on parameters
 $semanticConfigPath = Join-Path -Path $PSScriptRoot -ChildPath ".\Semantic\Config\"
@@ -82,7 +82,8 @@ if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE 
 }
 
-dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) #@args
+dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --packageId  $bootstrapScriptOutput.Id --packageTitle $bootstrapScriptOutput.Title --packageDescription $bootstrapScriptOutput.Description --packageAuthors $bootstrapScriptOutput.Authors
+
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory
 	exit $LASTEXITCODE 

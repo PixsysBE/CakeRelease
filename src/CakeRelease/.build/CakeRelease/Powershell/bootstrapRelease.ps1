@@ -185,4 +185,9 @@
         return 1
     }
 
-return $xml.Project.PropertyGroup.PackageId
+return [PSCustomObject]@{
+    Id = '"' + $xml.Project.PropertyGroup.PackageId + '"'
+    Title = '"' + $xml.Project.PropertyGroup.Title + '"'
+    Description = '"' + $xml.Project.PropertyGroup.Description + '"'
+    Authors = '"' + $xml.Project.PropertyGroup.Authors + '"'
+}
