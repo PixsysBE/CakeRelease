@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/PixsysBE/CakeRelease/compare/v1.0.0...v1.0.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* removed part 2 ([978b2b1](https://github.com/PixsysBE/CakeRelease/commit/978b2b1015248691c1e7b1da1fa9b2bb5e73163b))
+
 # 1.0.0 (2024-06-11)
 
 
