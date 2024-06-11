@@ -1,0 +1,7 @@
+/src/CakeRelease/.build/CakeRelease/Cake/tools/*
+/src/CakeRelease/CakeRelease/.build/CakeRelease/Cake/tools/*
+/src/CakeRelease/.vs/*
+/src/CakeRelease/CakeRelease/obj/*
+/src/CakeRelease/node_modules/*
+/src/CakeRelease/CakeRelease/bin/*
+/src/CakeRelease/.build/CakeRelease/Semantic/Artifacts/*
