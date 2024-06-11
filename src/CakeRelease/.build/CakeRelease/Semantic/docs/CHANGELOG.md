@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/PixsysBE/CakeRelease/compare/v1.1.0...v1.1.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* working directory ([5767b38](https://github.com/PixsysBE/CakeRelease/commit/5767b3881dc656de55b78e97a3488204ed7425ff))
+
 ## [1.0.1](https://github.com/PixsysBE/CakeRelease/compare/v1.0.0...v1.0.1) (2024-06-11)
 
 
