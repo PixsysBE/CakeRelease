@@ -285,6 +285,7 @@ Task("Release")
     .WithCriteria(() => changesDetectedSinceLastRelease)
     .Does(() =>
 {
+    Context.Environment.WorkingDirectory = semanticDirectory;
     Information("Releasing v{0}", releaseVersion);
     Information("Updating CHANGELOG.md");
     Information("Creating github release");
