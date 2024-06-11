@@ -1,3 +1,15 @@
+# 1.0.0 (2024-06-11)
+
+
+### Bug Fixes
+
+* readme link ([a443fd5](https://github.com/PixsysBE/CakeRelease/commit/a443fd52452ac2f8c08eaffab946c0098277e4aa))
+
+
+### Features
+
+* initial commit ([444c492](https://github.com/PixsysBE/CakeRelease/commit/444c4920d4745cb9122197a82f6a965b49a6cae8))
+
 # [1.17.0](https://github.com/PixsysBE/test-semantic-version/compare/v1.16.0...v1.17.0) (2024-06-10)
 
 
