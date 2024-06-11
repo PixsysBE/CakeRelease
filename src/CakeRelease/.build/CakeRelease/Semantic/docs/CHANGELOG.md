@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/PixsysBE/CakeRelease/compare/v1.1.1...v1.2.0) (2024-06-11)
+
+
+### Features
+
+* excluding files in nuspec ([ffc51d1](https://github.com/PixsysBE/CakeRelease/commit/ffc51d1ab82c9cdf2bbea981aa33357da8808c4d))
+
 ## [1.1.1](https://github.com/PixsysBE/CakeRelease/compare/v1.1.0...v1.1.1) (2024-06-11)
 
 
