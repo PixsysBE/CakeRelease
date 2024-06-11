@@ -72,11 +72,13 @@
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg" />
     <None Include=".build\CakeRelease\Powershell\bootstrapRelease.ps1" />
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
-    <None Include=".build\CakeRelease\Semantic\Artifacts\TestSemanticVersion.1.17.0.nupkg" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js" />
     <None Include=".build\CakeRelease\Semantic\Config\main.js" />
-    <None Include=".build\CakeRelease\Semantic\docs\CHANGELOG.md" />
     <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".build\CakeRelease\Semantic\Artifacts\" />
+    <Folder Include=".build\CakeRelease\Semantic\docs\" />
   </ItemGroup>
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <ItemGroup>

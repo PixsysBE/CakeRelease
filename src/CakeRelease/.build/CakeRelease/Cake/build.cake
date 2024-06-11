@@ -93,7 +93,7 @@ Task("Build")
     .IsDependentOn("Build solution")
     .IsDependentOn("Run tests")
     .IsDependentOn("Package")
-    //.IsDependentOn("Release")
+    .IsDependentOn("Release")
     ;
 
 Task("Run dotnet --info")

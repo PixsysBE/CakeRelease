@@ -5,3 +5,5 @@
 /src/CakeRelease/node_modules/*
 /src/CakeRelease/CakeRelease/bin/*
 /src/CakeRelease/.build/CakeRelease/Semantic/Artifacts/*
+/src/CakeRelease/CakeRelease/.build/CakeRelease/Semantic/Artifacts/*
+/src/CakeRelease/CakeRelease/.build/CakeRelease/Semantic/docs/*
