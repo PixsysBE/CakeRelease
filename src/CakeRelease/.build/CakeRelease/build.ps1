@@ -81,7 +81,7 @@ if ($LASTEXITCODE -ne 0) {
 	Set-Location -LiteralPath $currentDirectory	
 	exit $LASTEXITCODE 
 }
-Write-Host "rootPath:" $rootPath
+
 dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) #@args
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory

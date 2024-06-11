@@ -82,7 +82,7 @@ if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE 
 }
 
-dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) #@args
+dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath)
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory
 	exit $LASTEXITCODE 

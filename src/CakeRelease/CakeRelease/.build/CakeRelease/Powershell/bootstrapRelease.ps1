@@ -64,33 +64,33 @@ if ($missingProperties.Count -gt 0) {
 
 ##### PART 2 : Ensure README is included
 
-    # Ensure ItemGroup exists
-    $itemGroup = $xml.Project.ItemGroup
-    if ($null -eq $itemGroup) {
-        $itemGroup = $xml.CreateElement("ItemGroup")
-        $xml.Project.AppendChild($itemGroup)
-    }
+#     # Ensure ItemGroup exists
+#     $itemGroup = $xml.Project.ItemGroup
+#     if ($null -eq $itemGroup) {
+#         $itemGroup = $xml.CreateElement("ItemGroup")
+#         $xml.Project.AppendChild($itemGroup)
+#     }
 
-    # Check if the specified content already exists
-    $readMeItem = $xml.Project.SelectNodes("//ItemGroup/None[@Include='README.md']")
-    if ($readMeItem.Count -eq 0) {
-    # The specified content doesn't exist, so add it
-    $newItem = $xml.CreateElement("None")
-    $newItem.SetAttribute("Include", "README.md")
+#     # Check if the specified content already exists
+#     $readMeItem = $xml.Project.SelectNodes("//ItemGroup/None[@Include='README.md']")
+#     if ($readMeItem.Count -eq 0) {
+#     # The specified content doesn't exist, so add it
+#     $newItem = $xml.CreateElement("None")
+#     $newItem.SetAttribute("Include", "README.md")
 
-    $packElement = $xml.CreateElement("Pack")
-    $packElement.InnerText = "True"
-    $newItem.AppendChild($packElement)
+#     $packElement = $xml.CreateElement("Pack")
+#     $packElement.InnerText = "True"
+#     $newItem.AppendChild($packElement)
 
-    $packagePathElement = $xml.CreateElement("PackagePath")
-    $packagePathElement.InnerText = "\"
-    $newItem.AppendChild($packagePathElement)
+#     $packagePathElement = $xml.CreateElement("PackagePath")
+#     $packagePathElement.InnerText = "\"
+#     $newItem.AppendChild($packagePathElement)
 
-    $itemGroup.AppendChild($newItem)
+#     $itemGroup.AppendChild($newItem)
 
-    $saveFile =1
-    Write-Host "Including README.md to $($csproj.Name)"
-}
+#     $saveFile =1
+#     Write-Host "Including README.md to $($csproj.Name)"
+# }
 
 ##### PART 3 : Copy Git Hooks #####
 
