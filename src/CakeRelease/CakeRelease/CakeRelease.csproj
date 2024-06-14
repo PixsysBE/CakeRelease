@@ -21,7 +21,6 @@
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Git.4.0.0\lib\net8.0\Cake.Git.xml" />
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\cake-contrib-medium.png" />
     <Content Include=".config\dotnet-tools.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -30,10 +29,8 @@
       <PackagePath></PackagePath>
     </None>
     <None Include=".build\CakeRelease\build.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Cake\build.cake">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\.signature.p7s" />
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\Cake.Figlet.2.0.1.nupkg" />
@@ -76,20 +73,15 @@
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\Cake.Npx.nuspec" />
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\lib\netstandard2.0\Cake.Npx.dll" />
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Powershell\bootstrapRelease.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\main.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -98,10 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="package.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Tools\init.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
