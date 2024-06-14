@@ -29,6 +29,11 @@ $overrideFiles = @(".build\CakeRelease\build.ps1",
                    ".config\dotnet-tools.json"
                   )
 
+# Copy root files
+Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath ".nuspec") -Destination (Join-Path -Path $currentDirectory)
+Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "package.json") -Destination (Join-Path -Path $currentDirectory)
+
+# Copy folder files
 $folders = @(".build",".config")
 foreach($folder in $folders)
 {
