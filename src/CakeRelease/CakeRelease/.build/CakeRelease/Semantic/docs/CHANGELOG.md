@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/PixsysBE/CakeRelease/compare/v1.4.4...v1.4.5) (2024-06-14)
+
+
+### Bug Fixes
+
+* exclude in nuspec ([7dbc27e](https://github.com/PixsysBE/CakeRelease/commit/7dbc27e3a30d68573e534f528afb8c70b4bd1962))
+
 ## [1.4.4](https://github.com/PixsysBE/CakeRelease/compare/v1.4.3...v1.4.4) (2024-06-14)
 
 
