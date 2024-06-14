@@ -1,7 +1,5 @@
 ﻿# Cake Release
 
-> WARNING : This package is using a copy of itself to create its own releases ! Make sure you are looking at the code located under src/CakeRelease/CakeRelease
-
 **Cake Release** is a combination of [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4) scripts, [Cake Build](https://cakebuild.net/) script and [Semantic Release](https://github.com/semantic-release), automating build and deployment workflows of your .NET project.
 
 It is based on [Michael Wolfenden](https://medium.com/@michael.wolfenden/)'s article "[Simplified versioning and publishing for .NET libraries](https://medium.com/@michael.wolfenden/simplified-versioning-and-publishing-for-net-libraries-a28e5e740fa6)".
@@ -172,3 +170,6 @@ Optional parameters:
 | createGithubRelease         |                    | Creates a Github release  |                                                                                                               |
 | publishPackageToNugetSource | < Nuget source>    | Publish package to your Nuget source |
 
+## For Cake Release developers: Autobuild
+
+You can use the --autobuild parameter so Cake Release can create its own release by itself. This parameter can also be used if you decide to move your .build and .config folders one level down at your project(.csproj) level.
