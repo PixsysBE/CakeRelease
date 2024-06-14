@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/PixsysBE/CakeRelease/compare/v1.4.0...v1.4.1) (2024-06-14)
+
+
+### Bug Fixes
+
+* csproj ([f246236](https://github.com/PixsysBE/CakeRelease/commit/f24623676fb0544bbd2c56bc3285ea015fd8f3eb))
+
 # [1.4.0](https://github.com/PixsysBE/CakeRelease/compare/v1.3.0...v1.4.0) (2024-06-14)
 
 
