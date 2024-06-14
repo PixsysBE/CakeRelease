@@ -1,3 +1,10 @@
+## [1.4.7](https://github.com/PixsysBE/CakeRelease/compare/v1.4.6...v1.4.7) (2024-06-14)
+
+
+### Bug Fixes
+
+* nuspec ([1bd832b](https://github.com/PixsysBE/CakeRelease/commit/1bd832beef923fae0f03804982d6e34023c18515))
+
 ## [1.4.6](https://github.com/PixsysBE/CakeRelease/compare/v1.4.5...v1.4.6) (2024-06-14)
 
 
