@@ -6,13 +6,13 @@
     <description>Cake Release description</description>
     <authors>Sylvain Signore</authors>
     <version>0.0.0.0</version>
-    <!-- <readme>README.md</readme> -->
+    <readme>README.md</readme>
   </metadata>
   <files>
     <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*" />
     <file src=".config\" target=".config" />
     <file src="Tools\" target="tools" />
     <file src="package.json" target="package.json" />
-    <!-- <file src="README.md" target="README.md" /> -->
+    <file src="..\..\..\README.md" target="README.md" />
   </files>
 </package>
