@@ -1,3 +1,10 @@
+## [1.4.8](https://github.com/PixsysBE/CakeRelease/compare/v1.4.7...v1.4.8) (2024-06-14)
+
+
+### Bug Fixes
+
+* copy files ([1cc2c9b](https://github.com/PixsysBE/CakeRelease/commit/1cc2c9b7e847c8dd245ed45c44433410e8af729c))
+
 ## [1.4.7](https://github.com/PixsysBE/CakeRelease/compare/v1.4.6...v1.4.7) (2024-06-14)
 
 
