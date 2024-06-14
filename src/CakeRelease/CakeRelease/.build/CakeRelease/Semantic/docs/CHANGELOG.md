@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/PixsysBE/CakeRelease/compare/v1.3.0...v1.4.0) (2024-06-14)
+
+
+### Features
+
+* init script ([9d30f7a](https://github.com/PixsysBE/CakeRelease/commit/9d30f7af2d50fd04be38351da775e0af610a7249))
+
 # [1.3.0](https://github.com/PixsysBE/CakeRelease/compare/v1.2.1...v1.3.0) (2024-06-14)
 
 
