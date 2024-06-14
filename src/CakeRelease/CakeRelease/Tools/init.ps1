@@ -15,20 +15,11 @@ function Copy-New-Item {
 # Get the current directory
 $currentDirectory = Get-Location
 
-Write-Host "installPath: " $installPath
-Write-Host "toolsPath: " $toolsPath
-Write-Host "currentDirectory: " $currentDirectory
-Write-Host "projectPath: " $projectPath
+# Write-Host "installPath: " $installPath
+# Write-Host "toolsPath: " $toolsPath
+# Write-Host "currentDirectory: " $currentDirectory
 
-# $installPath="C:\Users\Sylvain\.nuget\packages\test-create-nuget-package-targets\0.0.1"
-# $toolsPath= "C:\Users\Sylvain\.nuget\packages\test-create-nuget-package-targets\0.0.1\tools"
-# $package= "NuGet.PackageManagement.VisualStudio.ScriptPackage"
-# $project= "Microsoft.VisualStudio.ProjectSystem.VS.Implementation.Package.Automation.OAProject"
-# $currentDirectory= "E:\Projects\test-semantic-version\src\TestSemanticVersion"
-# $projectPath= "E:\Projects\test-semantic-version\src\TestSemanticVersion\TestSemanticVersion\TestSemanticVersion.csproj"
-
-
-$overrideFiles = @(".build\CakeRelease\Semanticbuild.ps1",
+$overrideFiles = @(".build\CakeRelease\build.ps1",
                    ".build\CakeRelease\Cake\build.cake",
                    ".build\CakeRelease\Git\Hooks\commit-msg",
                    ".build\CakeRelease\Powershell\bootstrapRelease.ps1",
@@ -38,20 +29,19 @@ $overrideFiles = @(".build\CakeRelease\Semanticbuild.ps1",
                    ".config\dotnet-tools.json"
                   )
 
-$folders = @("/.build","/.config")
+$folders = @(".build",".config")
 foreach($folder in $folders)
 {
     $sourcePath = Join-Path -Path $installPath -ChildPath $folder
-    $targetPath = Join-Path -Path $currentDirectory -ChildPath $folder
+    $targetBasePath = Join-Path -Path $currentDirectory -ChildPath $folder
     $sourceFiles = Get-ChildItem -Path $sourcePath -File -Recurse
     foreach($sourceFile in $sourceFiles)
     {
         $sourceRelativePath = $sourceFile.FullName.Remove(0,($sourcePath.length))
-        $targetPath = Join-Path -Path $targetPath -ChildPath $sourceRelativePath
-        $exists = Test-Path -Path $targetPath
+        $targetPath = Join-Path -Path $targetBasePath -ChildPath $sourceRelativePath
         # Write-Host $sourceFile.FullName
-        if($exists -eq $true){
-            if($overrideFiles -contains $sourceRelativePath)
+        if(Test-Path -Path $targetPath){
+            if($overrideFiles -contains ($folder + $sourceRelativePath))
             {
                 Write-Host "${sourceRelativePath} already exists but will be overriden"  -ForegroundColor Green
                 Copy-Item -Path $sourceFile.FullName -Destination $targetPath -Force
@@ -61,8 +51,7 @@ foreach($folder in $folders)
         }
         else {
             Write-Host "Copying ${targetPath}..."  
-            Copy-Item -Path $sourceFile.FullName -Destination $targetPath -Recurse -Force
+            Copy-New-Item -Path $sourceFile.FullName -Destination $targetPath -Recurse -Force
         }
-        # Write-Host $targetPath $exists #sourceRelativePath
     }
 }
