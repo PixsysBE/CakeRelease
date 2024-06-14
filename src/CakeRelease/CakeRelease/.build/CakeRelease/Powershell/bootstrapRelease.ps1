@@ -108,7 +108,7 @@ if ($missingProperties.Count -gt 0) {
     # The specified content doesn't exist, so add it
     $itemGroup = $xml.CreateElement("ItemGroup")
     $customFiles = $xml.CreateElement("_CustomFiles")
-    $customFiles.SetAttribute("Include", ".build\CakeRelease\Git\Hooks\commit-msg")
+    $customFiles.SetAttribute("Include", "..\.build\CakeRelease\Git\Hooks\commit-msg")
     $itemGroup.AppendChild($customFiles)
     $target.AppendChild($itemGroup)
 
