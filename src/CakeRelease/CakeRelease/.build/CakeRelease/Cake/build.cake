@@ -19,6 +19,7 @@ var packageId = Argument<string>("packageId", "");
 var packageTitle = Argument<string>("packageTitle", "");
 var packageDescription = Argument<string>("packageDescription", "");
 var packageAuthors = Argument<string>("packageAuthors", "");
+var buildPath = Argument<string>("buildPath", "");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -29,9 +30,9 @@ var packageAuthors = Argument<string>("packageAuthors", "");
 Context.Environment.WorkingDirectory = Directory(projectPath);//projectDirectory;
 
 // Get paths from working directory
-var semanticDirectory = MakeAbsolute(Directory("../.build/CakeRelease/Semantic"));
+var semanticDirectory = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic")); //"../.build/CakeRelease/Semantic"
 var releaseVersion = "0.0.0";
-var artifactsDir = MakeAbsolute(Directory("../.build/CakeRelease/Semantic/Artifacts"));
+var artifactsDir = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic/Artifacts")); //"../.build/CakeRelease/Semantic/Artifacts"
 var binDir = MakeAbsolute(Directory("./bin"));
 var objDir = MakeAbsolute(Directory("./obj"));
 var solutions = GetFiles("../*.sln");

@@ -9,3 +9,4 @@
 /src/CakeRelease/CakeRelease/.build/CakeRelease/Semantic/docs/*
 /src/CakeRelease/.build/CakeRelease/Semantic/.releaserc.js
 /src/CakeRelease/CakeRelease/.build/CakeRelease/Semantic/.releaserc.js
+/src/CakeRelease/CakeRelease/node_modules/*

@@ -3,6 +3,7 @@ param (
 	[string]$vault,
 	[string]$publishPackageToNugetSource="",
 	[switch]$createGithubRelease,
+	[switch]$autoBuild,
 	[string]$csprojPath
 )
 
@@ -68,6 +69,12 @@ if($createGithubRelease.IsPresent)
 	$githubConfig = Get-Content -Path $githubConfigPath -Raw
 }
 
+$buildPath = ""
+if(-not $autoBuild.IsPresent)
+{
+	$buildPath = "../"
+}
+
 $releaseConfig = (Get-Content -Path $mainConfigPath) -replace "{%GITHUB%}", $githubConfig
 Out-File -FilePath $releaseConfigPath -InputObject $releaseConfig -encoding UTF8
 
@@ -82,7 +89,7 @@ if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE 
 }
 
-dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --packageId  $bootstrapScriptOutput.Id --packageTitle $bootstrapScriptOutput.Title --packageDescription $bootstrapScriptOutput.Description --packageAuthors $bootstrapScriptOutput.Authors
+dotnet cake --projectName $ensureScriptOutput --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --packageId  $bootstrapScriptOutput.Id --packageTitle $bootstrapScriptOutput.Title --packageDescription $bootstrapScriptOutput.Description --packageAuthors $bootstrapScriptOutput.Authors
 
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory
