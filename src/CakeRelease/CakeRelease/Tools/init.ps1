@@ -30,8 +30,8 @@ $overrideFiles = @(".build\CakeRelease\build.ps1",
                   )
 
 # Copy root files
-Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath ".nuspec") -Destination (Join-Path -Path $currentDirectory)
-Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "package.json") -Destination (Join-Path -Path $currentDirectory)
+Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "./.nuspec") -Destination $currentDirectory
+Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "./package.json") -Destination $currentDirectory
 
 # Copy folder files
 $folders = @(".build",".config")
