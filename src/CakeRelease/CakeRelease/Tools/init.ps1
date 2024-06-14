@@ -48,7 +48,7 @@ foreach($folder in $folders)
         }
         else {
             Write-Host "Copying ${targetPath}..."  
-            Copy-New-Item -Path $sourceFile.FullName -Destination $targetPath -Recurse -Force
+            Copy-Item -Path $sourceFile.FullName -Destination $targetPath -Recurse -Force
         }
         # Write-Host $targetPath $exists #sourceRelativePath
     }
