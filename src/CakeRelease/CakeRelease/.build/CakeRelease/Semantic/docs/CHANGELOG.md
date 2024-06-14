@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/PixsysBE/CakeRelease/compare/v1.4.5...v1.4.6) (2024-06-14)
+
+
+### Bug Fixes
+
+* bootstrap script ([00ddf8f](https://github.com/PixsysBE/CakeRelease/commit/00ddf8f6c7e9512f4c574c8fccb17891515ee1c9))
+
 ## [1.4.5](https://github.com/PixsysBE/CakeRelease/compare/v1.4.4...v1.4.5) (2024-06-14)
 
 
