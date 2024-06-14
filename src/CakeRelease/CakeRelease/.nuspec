@@ -5,11 +5,11 @@
     <title>Cake Release</title>
     <description>Cake Release description</description>
     <authors>Sylvain Signore</authors>
-    <version>1.3.0.0</version>
+    <version>1.4.4.0</version>
     <readme>README.md</readme>
   </metadata>
   <files>
-    <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*" />
+    <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js" />
     <file src=".config\" target=".config" />
     <file src="Tools\" target="tools" />
     <file src="package.json" target="package.json" />
