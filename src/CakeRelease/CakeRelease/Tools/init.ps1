@@ -15,6 +15,19 @@ function Copy-New-Item {
 # Get the current directory
 $currentDirectory = Get-Location
 
+Write-Host "installPath: " $installPath
+Write-Host "toolsPath: " $toolsPath
+Write-Host "currentDirectory: " $currentDirectory
+Write-Host "projectPath: " $projectPath
+
+# $installPath="C:\Users\Sylvain\.nuget\packages\test-create-nuget-package-targets\0.0.1"
+# $toolsPath= "C:\Users\Sylvain\.nuget\packages\test-create-nuget-package-targets\0.0.1\tools"
+# $package= "NuGet.PackageManagement.VisualStudio.ScriptPackage"
+# $project= "Microsoft.VisualStudio.ProjectSystem.VS.Implementation.Package.Automation.OAProject"
+# $currentDirectory= "E:\Projects\test-semantic-version\src\TestSemanticVersion"
+# $projectPath= "E:\Projects\test-semantic-version\src\TestSemanticVersion\TestSemanticVersion\TestSemanticVersion.csproj"
+
+
 $overrideFiles = @(".build\CakeRelease\Semanticbuild.ps1",
                    ".build\CakeRelease\Cake\build.cake",
                    ".build\CakeRelease\Git\Hooks\commit-msg",
