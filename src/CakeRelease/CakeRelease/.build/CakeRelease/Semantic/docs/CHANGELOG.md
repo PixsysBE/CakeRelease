@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/PixsysBE/CakeRelease/compare/v1.4.2...v1.4.3) (2024-06-14)
+
+
+### Bug Fixes
+
+* init script ([36c8348](https://github.com/PixsysBE/CakeRelease/commit/36c83480b159d186b233ef99b9ea9a003f4ce813))
+
 ## [1.4.2](https://github.com/PixsysBE/CakeRelease/compare/v1.4.1...v1.4.2) (2024-06-14)
 
 
