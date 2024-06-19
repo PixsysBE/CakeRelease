@@ -14,12 +14,12 @@ var projectName = Argument<string>("projectName", "Undefined");
 var publishPackageToNugetSource = Argument<bool>("publishPackageToNugetSource", false);
 var rootPath = Argument<string>("rootPath", "Undefined");
 var projectPath = Argument<string>("projectPath", "Undefined");
-//var dataJson = Argument("data", "{}");
-var packageId = Argument<string>("packageId", "");
-var packageTitle = Argument<string>("packageTitle", "");
-var packageDescription = Argument<string>("packageDescription", "");
-var packageAuthors = Argument<string>("packageAuthors", "");
+// var packageId = Argument<string>("packageId", "");
+// var packageTitle = Argument<string>("packageTitle", "");
+// var packageDescription = Argument<string>("packageDescription", "");
+// var packageAuthors = Argument<string>("packageAuthors", "");
 var buildPath = Argument<string>("buildPath", "");
+var nuspecFilePath = Argument<string>("nuspecFilePath", "");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -245,9 +245,9 @@ Task("Package")
         Context.Environment.WorkingDirectory = Directory(projectDirectory);
         var assemblyVersion = $"{releaseVersion}.0";
 
-        // Transform nuspec file
-        var nuspecFile = File(".nuspec");
-        Information("Updating version in nuspec file to {0}", assemblyVersion);
+        // // Transform nuspec file
+         var nuspecFile = File(nuspecFilePath);
+         Information("Updating version in nuspec file to {0}", assemblyVersion);
 
         // Define the namespace
         var xmlPokeSettings = new XmlPokeSettings {
@@ -255,12 +255,15 @@ Task("Package")
                 { "ns", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" }
             }
         };
-        // Use XmlPoke to update the version element
-        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:id", packageId, xmlPokeSettings);
-        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:title", packageTitle, xmlPokeSettings);
-        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:description", packageDescription, xmlPokeSettings);
-        XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:authors", packageAuthors, xmlPokeSettings);
+        // // Use XmlPoke to update the version element
+        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:id", packageId, xmlPokeSettings);
+        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:title", packageTitle, xmlPokeSettings);
+        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:description", packageDescription, xmlPokeSettings);
+        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:authors", packageAuthors, xmlPokeSettings);
         XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:version", assemblyVersion, xmlPokeSettings);
+
+        Information("NuspecFile: {0}", nuspecFilePath);
+        Information("NuspecBasePath: {0}", projectDirectory);
 
         DotNetPack(project.FullPath, new DotNetPackSettings {
             Configuration = configuration,
@@ -268,7 +271,8 @@ Task("Package")
             // https://learn.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-using-a-nuspec
             ArgumentCustomization = pag =>
             {
-                pag.Append("-p:NuspecFile=.nuspec");
+                pag.Append($"-p:NuspecFile={nuspecFilePath}");
+                pag.Append($"-p:NuspecBasePath={projectDirectory}");
                 return pag;
             },
             NoBuild = true,

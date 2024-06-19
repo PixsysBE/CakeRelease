@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Title>Cake Release</Title>
+    <!-- <Title>Cake Release</Title>
     <Description>Cake Release description</Description>
     <Company>Pixsys</Company>
     <PackageId>CakeRelease</PackageId>
@@ -11,7 +11,7 @@
     <IsPackable>true</IsPackable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile> -->
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\icon.png" />
@@ -26,7 +26,8 @@
   <ItemGroup>
     <None Include="..\..\..\README.md" Link="README.md">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include=".build\CakeRelease\build.ps1">
     </None>
@@ -74,6 +75,7 @@
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\lib\netstandard2.0\Cake.Npx.dll" />
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg">
     </None>
+    <None Include=".build\CakeRelease\Package\nuspec.sample" />
     <None Include=".build\CakeRelease\Powershell\bootstrapRelease.ps1">
     </None>
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />

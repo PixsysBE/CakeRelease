@@ -3,18 +3,17 @@
   <metadata>
     <id>CakeRelease</id>
     <title>Cake Release</title>
-    <description>Cake Release description</description>
     <authors>Sylvain Signore</authors>
-    <version>1.4.9.0</version>
+    <version>0.0.0.0</version>
     <readme>README.md</readme>
+    <description xmlns="">desc</description>
   </metadata>
   <files>
     <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js" />
     <file src=".config\" target=".config" />
     <file src="Tools\" target="tools" />
-    <file src="*" target="" />
-    <!--<file src="package.json" target="package.json" />
-    <file src=".nuspec" target=".nuspec" />-->
+    <file src="package.json" target="package.json" />
+    <!-- <file src="nuspec" target=".nuspec" /> -->
     <file src="..\..\..\README.md" target="README.md" />
   </files>
 </package>
