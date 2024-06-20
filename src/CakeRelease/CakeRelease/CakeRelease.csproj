@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -76,8 +76,8 @@
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg">
     </None>
     <None Include=".build\CakeRelease\Package\nuspec.sample" />
-    <None Include=".build\CakeRelease\Powershell\bootstrapRelease.ps1">
-    </None>
+    <None Include=".build\CakeRelease\Powershell\functions.ps1" />
+    <None Include=".build\CakeRelease\Powershell\variables.ps1" />
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
     </None>

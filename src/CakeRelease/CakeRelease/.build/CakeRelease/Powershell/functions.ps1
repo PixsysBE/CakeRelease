@@ -3,37 +3,35 @@ function Confirm-Package-Json-Properties {
         [string]$filePath,
         [switch]$verbose
     )
-# Check if the file exists
-if (Test-Path $filePath) {
-    # Read the content of the file
-    $jsonContent = Get-Content $filePath -Raw | ConvertFrom-Json
-    $saveFile=$false
-    # Check if the "name" property exist
-    if (-not $jsonContent.name) {
-        # Add the "name" property 
-        $jsonContent | Add-Member -MemberType NoteProperty -Name "name" -Value $xml.Project.PropertyGroup.PackageId.ToLower() -Force
-        $saveFile = $true
-    }
-    if (-not $jsonContent.private) {
-        # Allow running without an configured NPM_TOKEN : https://github.com/semantic-release/npm/issues/324
-        $jsonContent | Add-Member -MemberType NoteProperty -Name "private" -Value $true -Force
-        $saveFile = $true
-    }
+    # Check if the file exists
+    if (Test-Path $filePath) {
+        # Read the content of the file
+        $jsonContent = Get-Content $filePath -Raw | ConvertFrom-Json
+        $saveFile=$false
+        # Check if the "name" property exist
+        if (-not $jsonContent.name) {
+            # Add the "name" property 
+            $jsonContent | Add-Member -MemberType NoteProperty -Name "name" -Value $xml.Project.PropertyGroup.PackageId.ToLower() -Force
+            $saveFile = $true
+        }
+        if (-not $jsonContent.private) {
+            # Allow running without an configured NPM_TOKEN : https://github.com/semantic-release/npm/issues/324
+            $jsonContent | Add-Member -MemberType NoteProperty -Name "private" -Value $true -Force
+            $saveFile = $true
+        }
+                
+        if($saveFile -eq $true){                
+            # Convert the JSON object back to JSON format
+            $newContent = $jsonContent | ConvertTo-Json -Depth 2
+            # Write the new content to the file
+            $newContent | Set-Content $filePath
+            Write-Host  "One or more properties have been successfully added to package.json"
+        }
             
-    if($saveFile -eq $true){                
-        # Convert the JSON object back to JSON format
-        $newContent = $jsonContent | ConvertTo-Json -Depth 2
-
-        # Write the new content to the file
-        $newContent | Set-Content $filePath
-        Write-Host  "One or more properties have been successfully added to package.json"
+    } else {
+        Write-Host "The file package.json doesn't exist."
+        exit 1
     }
-        
-} else {
-    Write-Host "The file package.json doesn't exist."
-    exit 1
-}
-
 }
 
 function Copy-Git-Hooks {
@@ -72,10 +70,7 @@ function Copy-Git-Hooks {
     $saveFile=$true
     Write-Host "Git Hooks added to $($filePath)"
     }    
-
-
     Save-File -filePath $filePath -saveFile $saveFile -verbose:$verbose
-
 }
 
 function Confirm-Nuspec-Properties {
@@ -84,7 +79,6 @@ function Confirm-Nuspec-Properties {
         [switch]$verbose
     )
     $xml = [xml](Get-Content $filePath)
-
     $missingProperties = @()
     $properties = @{
         'id' = $xml.package.metadata.id
@@ -157,7 +151,6 @@ function Test-NuSpec-Exists {
     )
     
     if ([string]::IsNullOrWhiteSpace($nuspecFilePath)) {
-
         $nuspecPath = Join-Path -Path $rootPath -ChildPath ".\.build\CakeRelease\Package\${nuspec}"
         if (Test-Path $nuspecPath) {
             $nuspecFilePath = Resolve-Path $nuspecPath
