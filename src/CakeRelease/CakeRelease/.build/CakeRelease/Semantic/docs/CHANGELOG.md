@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/PixsysBE/CakeRelease/compare/v1.5.0...v1.6.0) (2024-06-26)
+
+
+### Features
+
+* added package.json properties to cake build ([d96cb6f](https://github.com/PixsysBE/CakeRelease/commit/d96cb6f329f8837ee8047c8f92ee0d6af078b401))
+
 # [1.5.0](https://github.com/PixsysBE/CakeRelease/compare/v1.4.10...v1.5.0) (2024-06-20)
 
 
