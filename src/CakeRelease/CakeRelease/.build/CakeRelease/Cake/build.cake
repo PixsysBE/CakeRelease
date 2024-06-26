@@ -20,7 +20,6 @@ var gitVersion = Argument<string>("gitVersion", "");
 var semanticReleaseVersion = Argument<string>("semanticReleaseVersion", "");
 var buildPath = Argument<string>("buildPath", "");
 var nuspecFilePath = Argument<string>("nuspecFilePath", "");
-var packageJsonProperties = Argument<PackageData>("packageJsonProperties");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -109,13 +108,13 @@ Task("Default")
 
 Task("Build")
     .IsDependentOn("Run dotnet --info")
-    // //.IsDependentOn("Parse-Json")
-    // .IsDependentOn("Clean")
-    // .IsDependentOn("Get next semantic version number")
-    // .IsDependentOn("Build solution")
-    // .IsDependentOn("Run tests")
-    // .IsDependentOn("Package")
-    // .IsDependentOn("Release")
+    //.IsDependentOn("Parse-Json")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Get next semantic version number")
+    .IsDependentOn("Build solution")
+    .IsDependentOn("Run tests")
+    .IsDependentOn("Package")
+    .IsDependentOn("Release")
     ;
 
 Task("Run dotnet --info")
