@@ -12,15 +12,15 @@ param (
 $ErrorActionPreference = 'Stop'
 
 $currentDirectory = Get-Location
-$psBuildDirectory = $PSScriptRoot
+$cakeReleaseDirectory = $PSScriptRoot
 
 # Import variables and scripts
 $scriptsFolder = ".\Powershell\"
 . (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}functions.ps1")
 . (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}variables.ps1")
 
-# Set location to psBuildDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
-Set-Location -LiteralPath $psBuildDirectory
+# Set location to cakeReleaseDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
+Set-Location -LiteralPath $cakeReleaseDirectory
 
 # Ensure script required variables exist
 $securePasswordPath = Confirm-String-Parameter -param $securePasswordPath -prompt "Please enter the secure password path" 
@@ -36,6 +36,9 @@ $env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = $publishPackageToNugetSource
 
 # Ensure .nuspec has all the properties needed
 $nuspecProperties = Confirm-Nuspec-Properties -filePath $nuspecFilePath -verbose:$verbose
+
+# Ensure package.json has all the properties needed
+$packageJsonProperties = Confirm-Package-Json-Properties -filePath $packageJsonPath -packageId $nuspecProperties.Id -verbose:$verbose
 
 # Git Hooks
 $csprojPath = Get-Csproj-Path -csprojPath $csprojPath
@@ -54,7 +57,7 @@ if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE 
 }
 
-dotnet cake --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath
+dotnet cake --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath --changelogVersion $packageJsonProperties.changelogVersion --execVersion $packageJsonProperties.execVersion --gitVersion $packageJsonProperties.gitVersion --semanticReleaseVersion $packageJsonProperties.semanticReleaseVersion
 
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory

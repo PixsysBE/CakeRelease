@@ -5,10 +5,11 @@ $env:DOTNET_NOLOGO = '1'
 # Relative path from PSScriptRoot
 $rootPathFolder = "../.."
 
-$rootPath = Resolve-Path (Join-Path -Path $psBuildDirectory -ChildPath $rootPathFolder)
-$semanticConfigPath = Join-Path -Path $psBuildDirectory -ChildPath ".\Semantic\Config\"
+$rootPath = Resolve-Path (Join-Path -Path $cakeReleaseDirectory -ChildPath $rootPathFolder)
+$semanticConfigPath = Join-Path -Path $cakeReleaseDirectory -ChildPath ".\Semantic\Config\"
 $mainConfigPath = Join-Path -Path $semanticConfigPath -ChildPath ".\main.js"
 $releaseConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "../.releaserc.js"
+$packageJsonPath = Join-Path -Path $cakeReleaseDirectory -ChildPath "../../package.json"
 
 $githubConfig = $null
 if($createGithubRelease.IsPresent)
@@ -25,7 +26,7 @@ if(-not $autoBuild.IsPresent)
 }
 
 # Cake build
-$cakePath = Join-Path -Path $psBuildDirectory -ChildPath ".\Cake"
+$cakePath = Join-Path -Path $cakeReleaseDirectory -ChildPath ".\Cake"
 
 # Get nuspecFile path
 $nuspec = ".nuspec"

@@ -14,12 +14,13 @@ var projectName = Argument<string>("projectName", "Undefined");
 var publishPackageToNugetSource = Argument<bool>("publishPackageToNugetSource", false);
 var rootPath = Argument<string>("rootPath", "Undefined");
 var projectPath = Argument<string>("projectPath", "Undefined");
-// var packageId = Argument<string>("packageId", "");
-// var packageTitle = Argument<string>("packageTitle", "");
-// var packageDescription = Argument<string>("packageDescription", "");
-// var packageAuthors = Argument<string>("packageAuthors", "");
+var changelogVersion = Argument<string>("changelogVersion", "");
+var execVersion = Argument<string>("execVersion", "");
+var gitVersion = Argument<string>("gitVersion", "");
+var semanticReleaseVersion = Argument<string>("semanticReleaseVersion", "");
 var buildPath = Argument<string>("buildPath", "");
 var nuspecFilePath = Argument<string>("nuspecFilePath", "");
+var packageJsonProperties = Argument<PackageData>("packageJsonProperties");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -58,15 +59,11 @@ var shouldRelease = isRunningOnMasterBranch || isRunningOnBetaBranch;  //isLocal
 var changesDetectedSinceLastRelease = false;
 
 Action<NpxSettings> requiredSemanticVersionPackages = settings => settings
-    .AddPackage("semantic-release@24.0.0")
-    .AddPackage("@semantic-release/changelog@6.0.3")
-    .AddPackage("@semantic-release/git@10.0.1")
-    .AddPackage("@semantic-release/exec@6.0.3");
+    .AddPackage($"semantic-release@{semanticReleaseVersion}")
+    .AddPackage($"@semantic-release/changelog@{changelogVersion}")
+    .AddPackage($"@semantic-release/git@{gitVersion}")
+    .AddPackage($"@semantic-release/exec@{execVersion}");
 
-// var packageId = "";
-// var packageTitle = "";
-// var packageDescription = "";
-// var packageAuthors = "";
 //////////////////////////////////////////////////////////////////////
 // CLASSES
 //////////////////////////////////////////////////////////////////////
@@ -112,13 +109,13 @@ Task("Default")
 
 Task("Build")
     .IsDependentOn("Run dotnet --info")
-    //.IsDependentOn("Parse-Json")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Get next semantic version number")
-    .IsDependentOn("Build solution")
-    .IsDependentOn("Run tests")
-    .IsDependentOn("Package")
-    .IsDependentOn("Release")
+    // //.IsDependentOn("Parse-Json")
+    // .IsDependentOn("Clean")
+    // .IsDependentOn("Get next semantic version number")
+    // .IsDependentOn("Build solution")
+    // .IsDependentOn("Run tests")
+    // .IsDependentOn("Package")
+    // .IsDependentOn("Release")
     ;
 
 Task("Run dotnet --info")

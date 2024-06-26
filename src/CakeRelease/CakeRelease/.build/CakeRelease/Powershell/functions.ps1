@@ -1,8 +1,12 @@
 function Confirm-Package-Json-Properties {
     param (
         [string]$filePath,
+        [string]$packageId,
         [switch]$verbose
     )
+    if($verbose.IsPresent){ 
+        Write-Host "Checking package.json path: " $filePath
+        }
     # Check if the file exists
     if (Test-Path $filePath) {
         # Read the content of the file
@@ -11,7 +15,7 @@ function Confirm-Package-Json-Properties {
         # Check if the "name" property exist
         if (-not $jsonContent.name) {
             # Add the "name" property 
-            $jsonContent | Add-Member -MemberType NoteProperty -Name "name" -Value $xml.Project.PropertyGroup.PackageId.ToLower() -Force
+            $jsonContent | Add-Member -MemberType NoteProperty -Name "name" -Value $packageId.ToLower() -Force
             $saveFile = $true
         }
         if (-not $jsonContent.private) {
@@ -26,6 +30,18 @@ function Confirm-Package-Json-Properties {
             # Write the new content to the file
             $newContent | Set-Content $filePath
             Write-Host  "One or more properties have been successfully added to package.json"
+        }
+
+        $changelogVersion = $jsonContent.dependencies.'@semantic-release/changelog'.Substring(1)
+        $execVersion = $jsonContent.dependencies.'@semantic-release/exec'.Substring(1)
+        $gitVersion = $jsonContent.dependencies.'@semantic-release/git'.Substring(1)
+        $semanticReleaseVersion = $jsonContent.dependencies.'semantic-release'.Substring(1)
+
+        return [PSCustomObject]@{
+            changelogVersion = $changelogVersion
+            execVersion = $execVersion
+            gitVersion = $gitVersion
+            semanticReleaseVersion = $semanticReleaseVersion
         }
             
     } else {
