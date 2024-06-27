@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/PixsysBE/CakeRelease/compare/v1.6.0...v1.6.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* removed packageJsonProperties argument ([3840d2c](https://github.com/PixsysBE/CakeRelease/commit/3840d2c030064ee34e75b442464c0f7d404adadd))
+
 # [1.6.0](https://github.com/PixsysBE/CakeRelease/compare/v1.5.0...v1.6.0) (2024-06-26)
 
 
