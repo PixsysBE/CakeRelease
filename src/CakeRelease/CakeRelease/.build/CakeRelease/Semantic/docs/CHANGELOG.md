@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/PixsysBE/CakeRelease/compare/v1.7.1...v1.7.2) (2024-07-03)
+
+
+### Bug Fixes
+
+* nuget publish multiple commands ([2761617](https://github.com/PixsysBE/CakeRelease/commit/27616178510ce02f5b235d6efe1bb447ba7b64ee))
+
 ## [1.7.1](https://github.com/PixsysBE/CakeRelease/compare/v1.7.0...v1.7.1) (2024-07-03)
 
 
