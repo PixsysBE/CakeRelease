@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/PixsysBE/CakeRelease/compare/v1.7.0...v1.7.1) (2024-07-03)
+
+
+### Bug Fixes
+
+* nuget publish paths ([109b352](https://github.com/PixsysBE/CakeRelease/commit/109b352812fefdd311946d6cfca8c6ae93256945))
+
 # [1.7.0](https://github.com/PixsysBE/CakeRelease/compare/v1.6.1...v1.7.0) (2024-07-03)
 
 
