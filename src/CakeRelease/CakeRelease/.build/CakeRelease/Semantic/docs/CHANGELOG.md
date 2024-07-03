@@ -1,3 +1,17 @@
+# [1.7.0](https://github.com/PixsysBE/CakeRelease/compare/v1.6.1...v1.7.0) (2024-07-03)
+
+
+### Features
+
+* publish to nuget ([ab828af](https://github.com/PixsysBE/CakeRelease/commit/ab828af2f793216ca34d657d43b55d71f71cb39e))
+
+# [1.7.0](https://github.com/PixsysBE/CakeRelease/compare/v1.6.1...v1.7.0) (2024-07-03)
+
+
+### Features
+
+* publish to nuget ([ab828af](https://github.com/PixsysBE/CakeRelease/commit/ab828af2f793216ca34d657d43b55d71f71cb39e))
+
 ## [1.6.1](https://github.com/PixsysBE/CakeRelease/compare/v1.6.0...v1.6.1) (2024-06-27)
 
 
