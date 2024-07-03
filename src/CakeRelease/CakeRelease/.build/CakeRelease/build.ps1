@@ -1,7 +1,8 @@
 param (
 	[string]$securePasswordPath,
 	[string]$vault,
-	[string]$publishPackageToNugetSource="",
+	[switch]$publishToNuget,
+	[string]$publishToSource="",
 	[switch]$createGithubRelease,
 	[switch]$autoBuild,
 	[string]$csprojPath,
@@ -17,7 +18,7 @@ $cakeReleaseDirectory = $PSScriptRoot
 # Import variables and scripts
 $scriptsFolder = ".\Powershell\"
 . (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}functions.ps1")
-. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}variables.ps1")
+. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}settings.ps1")
 
 # Set location to cakeReleaseDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
 Set-Location -LiteralPath $cakeReleaseDirectory
@@ -30,9 +31,10 @@ $vault = Confirm-String-Parameter -param $vault -prompt "Please enter the vault 
 $password = Import-CliXml -Path $securePasswordPath
 Unlock-SecretStore -Password $password
 $env:GH_TOKEN = Get-Secret -Name GH_TOKEN -Vault $vault -AsPlainText
+$env:NUGET_TOKEN = Get-Secret -Name NUGET_TOKEN -Vault $vault -AsPlainText
 
 # Additional environments variables
-$env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = $publishPackageToNugetSource
+$env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = $publishToSource
 
 # Ensure .nuspec has all the properties needed
 $nuspecProperties = Confirm-Nuspec-Properties -filePath $nuspecFilePath -verbose:$verbose
@@ -46,6 +48,7 @@ Copy-Git-Hooks -filePath $csprojPath -includePath $csprojTargetGitHooksCommitMsg
 
 # Create Semantic release config file based on parameters
 $releaseConfig = (Get-Content -Path $mainConfigPath) -replace "{%GITHUB%}", $githubConfig
+$releaseConfig = $releaseConfig -replace "{%NUGET%}", $nugetConfig
 Out-File -FilePath $releaseConfigPath -InputObject $releaseConfig -encoding UTF8
 
 # Cake build

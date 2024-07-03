@@ -20,16 +20,7 @@ module.exports = {
             }
         ],
         {%GITHUB%}
-
-        // Exec plugin uses to call dotnet nuget push to push the packages from
-        // the artifacts folder to NuGet
-        [
-            "@semantic-release/exec", {
-                //"verifyConditionsCmd": "./verify.sh",
-                //"publishCmd": "Scripts/publishReleaseToGitHub.sh" //"dotnet nuget push .\\Artifacts\\*.nupkg -s ${process.env.NUGETSOURCE}"
-                "publishCmd": ".\\Scripts\\publishPackageToNuget.sh ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}"
-            }
-        ]
+        {%NUGET%}
     ],
     "branches": ["master", "next", { name: 'beta', prerelease: true }, { name: 'alpha', prerelease: true }]
 };

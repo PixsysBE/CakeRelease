@@ -11,12 +11,30 @@ $mainConfigPath = Join-Path -Path $semanticConfigPath -ChildPath ".\main.js"
 $releaseConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "../.releaserc.js"
 $packageJsonPath = Join-Path -Path $cakeReleaseDirectory -ChildPath "../../package.json"
 
+# Semantic Release config file
 $githubConfig = $null
 if($createGithubRelease.IsPresent)
 {
 	$githubConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "github.js"
 	$githubConfig = Get-Content -Path $githubConfigPath -Raw
 }
+
+$nugetConfig = $null
+if($publishToNuget.IsPresent -or (-not [string]::IsNullOrWhiteSpace($publishToSource))){
+	$nugetConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "nuget.js"
+	$nugetpublishCmd = $null
+	if(-not [string]::IsNullOrWhiteSpace($publishToSource)){
+		#$nugetpublishCmd = ".\\Scripts\\publishPackageToSource.sh $`{process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE`}; "
+		$nugetpublishCmd = "dotnet nuget push .\\Artifacts\\*.nupkg -s $`{process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE`}; "
+	}
+	if($publishToNuget.IsPresent)
+	{
+		$nugetpublishCmd += "dotnet nuget push .\\Artifacts\\*.nupkg -k $`{process.env.NUGET_TOKEN`} -s https://api.nuget.org/v3/index.json;"
+	}
+	$nugetConfig = (Get-Content -Path $nugetConfigPath -Raw) -replace "{%NUGETPUBLISHCMD%}", $nugetpublishCmd 
+}
+Write-Host "Nuget config: ${nugetConfig}"
+
 
 # .build folder path
 $buildPath = ""

@@ -14,6 +14,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile> -->
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove=".build\CakeRelease\Semantic\Scripts\**" />
+    <EmbeddedResource Remove=".build\CakeRelease\Semantic\Scripts\**" />
+    <None Remove=".build\CakeRelease\Semantic\Scripts\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\icon.png" />
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Git.4.0.0\images\icon.png" />
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Git.4.0.0\lib\net6.0\Cake.Git.xml" />
@@ -77,13 +82,11 @@
     </None>
     <None Include=".build\CakeRelease\Package\nuspec.sample" />
     <None Include=".build\CakeRelease\Powershell\functions.ps1" />
-    <None Include=".build\CakeRelease\Powershell\variables.ps1" />
+    <None Include=".build\CakeRelease\Powershell\settings.ps1" />
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\main.js">
-    </None>
-    <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh">
     </None>
   </ItemGroup>
   <ItemGroup>

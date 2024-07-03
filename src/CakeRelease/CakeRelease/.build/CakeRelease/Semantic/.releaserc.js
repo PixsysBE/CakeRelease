@@ -20,14 +20,13 @@ module.exports = {
             }
         ],
         
-
-        // Exec plugin uses to call dotnet nuget push to push the packages from
+                // Exec plugin uses to call dotnet nuget push to push the packages from
         // the artifacts folder to NuGet
         [
             "@semantic-release/exec", {
                 //"verifyConditionsCmd": "./verify.sh",
                 //"publishCmd": "Scripts/publishReleaseToGitHub.sh" //"dotnet nuget push .\\Artifacts\\*.nupkg -s ${process.env.NUGETSOURCE}"
-                "publishCmd": ".\\Scripts\\publishPackageToNuget.sh ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}"
+                "publishCmd": "dotnet nuget push .\\Artifacts\\*.nupkg -s ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}; dotnet nuget push .\\Artifacts\\*.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json;"
             }
         ]
     ],

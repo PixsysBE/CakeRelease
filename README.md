@@ -2,6 +2,13 @@
 
 **Cake Release** is a combination of [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4) scripts, [Cake Build](https://cakebuild.net/) script and [Semantic Release](https://github.com/semantic-release), automating build and deployment workflows of your .NET project.
 
+The goal is to :
+
+- Enforce conventional commits using Git hooks
+- Automatically calculate the next version number, and update your changelog
+- Create a release on GitHub with a full history of changes since the last release (if needed)
+- Publish your package to NuGet or any NuGet source (if needed)
+
 It is based on [Michael Wolfenden](https://medium.com/@michael.wolfenden/)'s article "[Simplified versioning and publishing for .NET libraries](https://medium.com/@michael.wolfenden/simplified-versioning-and-publishing-for-net-libraries-a28e5e740fa6)".
 
 ## Tools Definitions
@@ -116,11 +123,7 @@ Unregister-SecretVault -Name YourVaultName
 Go to your root folder and install semantic-release and its plugins :
 
 ```powershell
-npm install semantic-release -D
-npm install @semantic-release/changelog -D
-npm install @semantic-release/git -D
-npm install @semantic-release/exec -D
-
+npm install
 ```
 
 You should have a folder structure similar to this :
@@ -128,10 +131,11 @@ You should have a folder structure similar to this :
 ```
 ├── /src
 │   ├── <Project Name>
-│   │   ├── .build
+│   │   ├── /.build
 │   │   │   ├── /CakeRelease
 │   │   │   │   ├── /Cake
 │   │   │   │   ├── /Git
+│   │   │   │   ├── /Package
 │   │   │   │   ├── /Powershell
 │   │   │   │   ├── /Semantic
 │   │   │   ├── build.ps1
@@ -145,22 +149,22 @@ You should have a folder structure similar to this :
 
 ### Bash script
 
-**Cake Release** is using Bash scripts with Semantic Release, so make sure you can run these witout issue (with [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) for instance).
+**Cake Release** is using Bash scripts with Semantic Release, so make sure you can run these without issue (with [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) for instance).
 
 ## Run Cake release
 
 Run the build command located in the .build/CakeRelease folder:
 
 ```powershell
-.\.build\CakeRelease\build.ps1 -securePasswordPath "C:\Automation\securestorepasswd.xml" -vault YourVaultName -createGithubRelease -publishPackageToNugetSource <NUGET_SOURCE   >
+.\.build\CakeRelease\build.ps1 -securePasswordPath "C:\Automation\securestorepasswd.xml" -vault YourVaultName -createGithubRelease -publishToSource <NUGET_SOURCE>
 ```
 
 Required parameters:
 
 | Name               | Value              | Description  |
 | ------------------ | ------------------ | --------------------------------------------- |
-| securePasswordPath | < path to your secure store password >  | your secure store password path   |                                                                                                               |
-| vault              | < vault name > | Your vault name |
+| securePasswordPath | &lt;path to your secure store password&gt;  | your secure store password path   |                                                                                                               |
+| vault              | &lt;vault name&gt; | Your vault name |
 
 
 Optional parameters:
@@ -168,7 +172,12 @@ Optional parameters:
 | Name                        | Value              | Description  |
 | --------------------------- | ------------------ | ------------------------- |
 | createGithubRelease         |                    | Creates a Github release  |                                                                                                               |
-| publishPackageToNugetSource | < Nuget source>    | Publish package to your Nuget source |
+| publishToNuget | | Publish package to Nuget |
+| publishToSource | &lt;Nuget source&gt;    | Publish package to your Nuget source |
+| autoBuild | | See [Autobuild section](#for-cake-release-developers-autobuild) |
+| csprojPath | &lt;csproj path&gt; | Path to your .csproj |
+| nuspecFilePath | &lt;nuspec path&gt; | Path to your .nuspec |
+| verbose | | Adds verbosity |
 
 ## For Cake Release developers: Autobuild
 
