@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/PixsysBE/CakeRelease/compare/v1.8.2...v1.8.3) (2024-07-04)
+
+
+### Bug Fixes
+
+* format with double backslash ([f4f8d4d](https://github.com/PixsysBE/CakeRelease/commit/f4f8d4d6890fa7bc1431492cb7953d3957442a9d))
+
 ## [1.8.2](https://github.com/PixsysBE/CakeRelease/compare/v1.8.1...v1.8.2) (2024-07-04)
 
 
