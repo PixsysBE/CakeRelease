@@ -1,9 +1,7 @@
 ﻿#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Figlet&version=2.0.1"
 #addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Npx&version=1.7.0"
 #addin "nuget:?package=Cake.Git&version=4.0.0"
-// #addin nuget:?package=Newtonsoft.Json&version=13.0.1
 
-// using Newtonsoft.Json;
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 ///////////////////////////////////////////////////////////////////////////////
@@ -11,7 +9,6 @@
 var target = Argument<string>("target", "Default");
 var configuration = Argument<string>("configuration", "Release");
 var projectName = Argument<string>("projectName", "Undefined");
-var publishPackageToNugetSource = Argument<bool>("publishPackageToNugetSource", false);
 var rootPath = Argument<string>("rootPath", "Undefined");
 var projectPath = Argument<string>("projectPath", "Undefined");
 var changelogVersion = Argument<string>("changelogVersion", "");
@@ -25,14 +22,12 @@ var nuspecFilePath = Argument<string>("nuspecFilePath", "");
 // GLOBAL VARIABLES
 ///////////////////////////////////////////////////////////////////////////////
 
-//var projectDirectory = MakeAbsolute(Directory("../../../TestSemanticVersion")); //Make sure this path goes to .csproj location
-//var projectDirectory = MakeAbsolute(Directory("../../../TestSemanticVersion")); //Make sure this path goes to root
-Context.Environment.WorkingDirectory = Directory(projectPath);//projectDirectory;
+Context.Environment.WorkingDirectory = Directory(projectPath);
 
 // Get paths from working directory
-var semanticDirectory = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic")); //"../.build/CakeRelease/Semantic"
+var semanticDirectory = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic"));
 var releaseVersion = "0.0.0";
-var artifactsDir = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic/Artifacts")); //"../.build/CakeRelease/Semantic/Artifacts"
+var artifactsDir = MakeAbsolute(Directory($"{buildPath}.build/CakeRelease/Semantic/Artifacts"));
 var binDir = MakeAbsolute(Directory("./bin"));
 var objDir = MakeAbsolute(Directory("./obj"));
 var solutions = GetFiles("../*.sln");
@@ -62,18 +57,6 @@ Action<NpxSettings> requiredSemanticVersionPackages = settings => settings
     .AddPackage($"@semantic-release/changelog@{changelogVersion}")
     .AddPackage($"@semantic-release/git@{gitVersion}")
     .AddPackage($"@semantic-release/exec@{execVersion}");
-
-//////////////////////////////////////////////////////////////////////
-// CLASSES
-//////////////////////////////////////////////////////////////////////
-
-// public class PackageData
-// {
-//     public string Id { get; set; }
-//     public string Title { get; set; }
-//     public string Description { get; set; }
-//     public string Authors { get; set; }
-// }
 
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
@@ -135,23 +118,6 @@ Task("Clean")
     CleanDirectory(objDir);
 });
 
-// Task("Parse-Json")
-//     .Does(() =>
-// {
-//     Information ("Data Json: {0}", dataJson);
-//     // Convert JSON string to VersionInfo object
-//     var versionInfo = JsonConvert.DeserializeObject<PackageData>(dataJson);
-//     if (versionInfo == null)
-//     {
-//         Error("Failed to parse JSON data.");
-//         return;
-//     }
-
-//     var packageId = versionInfo.Id;
-//     var packageTitle = versionInfo.Title;
-//     var packageDescription = versionInfo.Description;
-//     var packageAuthors = versionInfo.Authors;
-// });
 /*
 Normally this task should only run based on the 'shouldRelease' condition,
 however sometimes you want to run this locally to preview the next sematic version
@@ -241,7 +207,7 @@ Task("Package")
         Context.Environment.WorkingDirectory = Directory(projectDirectory);
         var assemblyVersion = $"{releaseVersion}.0";
 
-        // // Transform nuspec file
+        // Get and transform nuspec file
          var nuspecFile = File(nuspecFilePath);
          Information("Updating version in nuspec file to {0}", assemblyVersion);
 
@@ -251,11 +217,6 @@ Task("Package")
                 { "ns", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" }
             }
         };
-        // // Use XmlPoke to update the version element
-        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:id", packageId, xmlPokeSettings);
-        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:title", packageTitle, xmlPokeSettings);
-        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:description", packageDescription, xmlPokeSettings);
-        // XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:authors", packageAuthors, xmlPokeSettings);
         XmlPoke(nuspecFile, "//ns:package/ns:metadata/ns:version", assemblyVersion, xmlPokeSettings);
 
         Information("NuspecFile: {0}", nuspecFilePath);
@@ -306,7 +267,7 @@ Task("Release")
 RunTarget(target);
 
 ///////////////////////////////////////////////////////////////////////////////
-// Helpers
+// HELPERS
 ///////////////////////////////////////////////////////////////////////////////
 
 string ExtractNextSemanticVersionNumber(string[] semanticReleaseOutput)
