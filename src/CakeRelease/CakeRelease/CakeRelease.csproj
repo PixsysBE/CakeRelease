@@ -84,11 +84,11 @@
     <None Include=".build\CakeRelease\Semantic\Config\main.js">
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\nuget.js" />
-    <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToSource.sh" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".build\CakeRelease\Semantic\Artifacts\" />
     <Folder Include=".build\CakeRelease\Semantic\docs\" />
+    <Folder Include=".build\CakeRelease\Semantic\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="package.json">

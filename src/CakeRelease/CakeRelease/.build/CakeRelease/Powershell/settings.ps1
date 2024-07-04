@@ -22,19 +22,7 @@ if($createGithubRelease.IsPresent)
 $nugetConfig = $null
 if($publishToNuget.IsPresent -or (-not [string]::IsNullOrWhiteSpace($publishToSource))){
 	$nugetConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "nuget.js"
-	$nugetpublishCmd = $null
-	if(-not [string]::IsNullOrWhiteSpace($publishToSource)){
-		#$nugetpublishCmd = ".\\Scripts\\publishPackageToSource.sh $`{process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE`}; "
-		$nugetpublishCmd = "dotnet nuget push .\Artifacts\*.nupkg -s $`{process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE`}"
-	}
-	if($publishToNuget.IsPresent)
-	{
-		if(-not [string]::IsNullOrWhiteSpace($nugetpublishCmd)){
-			$nugetpublishCmd += " && "
-		}
-		$nugetpublishCmd += "dotnet nuget push .\Artifacts\*.nupkg -k $`{process.env.NUGET_TOKEN`} -s https://api.nuget.org/v3/index.json"
-	}
-	$nugetConfig = (Get-Content -Path $nugetConfigPath -Raw) -replace "{%NUGETPUBLISHCMD%}", $nugetpublishCmd 
+	$nugetConfig = Get-Content -Path $nugetConfigPath -Raw
 }
 
 # .build folder path

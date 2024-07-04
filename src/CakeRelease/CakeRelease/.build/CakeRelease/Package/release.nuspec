@@ -4,9 +4,10 @@
     <id>CakeRelease</id>
     <title>Cake Release</title>
     <authors>Sylvain Signore</authors>
-    <version>1.6.1.0</version>
+    <version>0.0.0.0</version>
     <readme>README.md</readme>
-    <description xmlns="">desc</description>
+    <description>Cake Release is a combination of Powershell scripts, Cake Build script and Semantic Release, automating build and deployment workflows of your .NET project.</description>
+    <projectUrl>https://github.com/PixsysBE/CakeRelease</projectUrl>
   </metadata>
   <files>
     <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js" />
