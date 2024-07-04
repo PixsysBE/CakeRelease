@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/PixsysBE/CakeRelease/compare/v1.8.0...v1.8.1) (2024-07-04)
+
+
+### Bug Fixes
+
+* updated nuspec properties ([65c3317](https://github.com/PixsysBE/CakeRelease/commit/65c33170c78c5a0b61a277dc5095092ed29e7c15))
+
 # [1.8.0](https://github.com/PixsysBE/CakeRelease/compare/v1.7.2...v1.8.0) (2024-07-04)
 
 
