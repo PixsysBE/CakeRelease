@@ -31,7 +31,14 @@ $vault = Confirm-String-Parameter -param $vault -prompt "Please enter the vault 
 $password = Import-CliXml -Path $securePasswordPath
 Unlock-SecretStore -Password $password
 $env:GH_TOKEN = Get-Secret -Name GH_TOKEN -Vault $vault -AsPlainText
-$env:NUGET_TOKEN = Get-Secret -Name NUGET_TOKEN -Vault $vault -AsPlainText
+
+if($publishToNuget.IsPresent){
+	$env:NUGET_TOKEN = Get-Secret -Name NUGET_TOKEN -Vault $vault -AsPlainText
+	if([string]::IsNullOrWhiteSpace($env:NUGET_TOKEN)){
+		Write-Host "Nuget Api key has not been defined, please update your vault with a NUGET_TOKEN secret"
+		exit 1
+	}
+}
 
 # Additional environments variables
 $env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = $publishToSource
