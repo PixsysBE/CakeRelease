@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/PixsysBE/CakeRelease/compare/v1.8.1...v1.8.2) (2024-07-04)
+
+
+### Bug Fixes
+
+* nuget token ([5962a69](https://github.com/PixsysBE/CakeRelease/commit/5962a699e06329ab3f37234bc0a36f6c98f53fa0))
+
 ## [1.8.1](https://github.com/PixsysBE/CakeRelease/compare/v1.8.0...v1.8.1) (2024-07-04)
 
 
