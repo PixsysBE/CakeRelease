@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/PixsysBE/CakeRelease/compare/v1.7.2...v1.8.0) (2024-07-04)
+
+
+### Features
+
+* updated nuget shell script ([0afd5b2](https://github.com/PixsysBE/CakeRelease/commit/0afd5b27592d100b6c8af23ee5d657a24fe13840))
+
 ## [1.7.2](https://github.com/PixsysBE/CakeRelease/compare/v1.7.1...v1.7.2) (2024-07-03)
 
 
