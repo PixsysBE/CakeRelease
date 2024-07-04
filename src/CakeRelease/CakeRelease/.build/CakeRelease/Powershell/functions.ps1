@@ -218,3 +218,27 @@ function Confirm-String-Parameter {
     } 
     return $param
 }
+
+function Format-With-Double-Backslash{
+    param (
+        [string]$string
+    )
+    for ($i = 0; $i -lt $string.Length; $i++) {
+        # Si le caractère est un backslash
+        if ($string[$i] -eq '\') {
+            # Si le backslash est suivi d'un autre backslash
+            if (($i + 1) -lt $string.Length -and $string[$i + 1] -eq '\') {
+                # Ajouter les deux backslashes au résultat et sauter le prochain caractère
+                $result += '\\'
+                $i++
+            } else {
+                # Ajouter un double backslash au résultat
+                $result += '\\'
+            }
+        } else {
+            # Ajouter le caractère courant au résultat
+            $result += $string[$i]
+        }
+    }
+    return $result
+}

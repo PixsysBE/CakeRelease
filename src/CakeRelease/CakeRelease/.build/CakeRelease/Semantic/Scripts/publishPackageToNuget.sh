@@ -22,7 +22,7 @@ echo "checking if release must be published to Nuget..."
 
 if [[ $NUGET_TOKEN != "" ]]; then
 	result = $(dotnet nuget push .\\Artifacts\\*.nupkg -k $NUGET_TOKEN -s https://api.nuget.org/v3/index.json)
-	echo result
+	echo $result
 fi;
 
 
@@ -30,5 +30,5 @@ echo "checking if release must be published to custom Nuget source..."
 
 if [[ $NUGET_SOURCE != "" ]]; then
 	result = $(dotnet nuget push .\\Artifacts\\*.nupkg -s $NUGET_SOURCE)
-	echo result
+	echo $result
 fi;

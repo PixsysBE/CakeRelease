@@ -42,7 +42,7 @@ if($publishToNuget.IsPresent){
 }
 
 # Additional environments variables
-$env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = $publishToSource
+$env:PUBLISH_PACKAGE_TO_NUGET_SOURCE = Format-With-Double-Backslash -string $publishToSource
 
 # Ensure .nuspec has all the properties needed
 $nuspecProperties = Confirm-Nuspec-Properties -filePath $nuspecFilePath -verbose:$verbose
