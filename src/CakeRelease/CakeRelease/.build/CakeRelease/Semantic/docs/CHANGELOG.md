@@ -1,3 +1,10 @@
+## [1.8.4](https://github.com/PixsysBE/CakeRelease/compare/v1.8.3...v1.8.4) (2024-07-04)
+
+
+### Bug Fixes
+
+* result in bash script ([4361565](https://github.com/PixsysBE/CakeRelease/commit/4361565449c036c4efc4d18df9e0e972cbd49086))
+
 ## [1.8.3](https://github.com/PixsysBE/CakeRelease/compare/v1.8.2...v1.8.3) (2024-07-04)
 
 
