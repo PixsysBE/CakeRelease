@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/PixsysBE/CakeRelease/compare/v1.8.4...v1.8.5) (2024-07-04)
+
+
+### Bug Fixes
+
+* bash script argument ([ff5464a](https://github.com/PixsysBE/CakeRelease/commit/ff5464aeaea0dbf19060022fcbc589e575717f02))
+
 ## [1.8.4](https://github.com/PixsysBE/CakeRelease/compare/v1.8.3...v1.8.4) (2024-07-04)
 
 
