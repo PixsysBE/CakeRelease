@@ -32,7 +32,7 @@ $password = Import-CliXml -Path $securePasswordPath
 Unlock-SecretStore -Password $password
 $env:GH_TOKEN = Get-Secret -Name GH_TOKEN -Vault $vault -AsPlainText
 
-$env:NUGET_TOKEN = $null
+$env:NUGET_TOKEN = "notoken"
 if($publishToNuget.IsPresent){
 	$env:NUGET_TOKEN = Get-Secret -Name NUGET_TOKEN -Vault $vault -AsPlainText
 	if([string]::IsNullOrWhiteSpace($env:NUGET_TOKEN)){

@@ -20,7 +20,7 @@ done
 
 echo "checking if release must be published to Nuget..."
 
-if [[ $NUGET_TOKEN != "" ]]; then
+if [[ $NUGET_TOKEN != "" ]] && [[ $NUGET_TOKEN != "notoken" ]]; then
 	result=$(dotnet nuget push .\\Artifacts\\*.nupkg -k $NUGET_TOKEN -s https://api.nuget.org/v3/index.json)
 	echo $result
 fi
