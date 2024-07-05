@@ -17,8 +17,8 @@ $cakeReleaseDirectory = $PSScriptRoot
 
 # Import variables and scripts
 $scriptsFolder = ".\Powershell\"
-. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}functions.ps1")
-. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}settings.ps1")
+. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}cakerelease.functions.ps1")
+. (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}cakerelease.settings.ps1")
 
 # Set location to cakeReleaseDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
 Set-Location -LiteralPath $cakeReleaseDirectory

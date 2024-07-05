@@ -171,7 +171,6 @@ function Test-NuSpec-Exists {
         [string]$defaultPath,
         [switch]$verbose
     )
-    Write-Host ".nuspec path: " $nuspecFilePath
     if ([string]::IsNullOrWhiteSpace($nuspecFilePath)) {
         $nuspecPath = Join-Path -Path $rootPath -ChildPath ".\.build\CakeRelease\Package\${nuspec}"
         if (Test-Path $nuspecPath) {
