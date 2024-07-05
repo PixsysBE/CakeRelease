@@ -1,3 +1,11 @@
+## [1.8.6](https://github.com/PixsysBE/CakeRelease/compare/v1.8.5...v1.8.6) (2024-07-05)
+
+
+### Bug Fixes
+
+* git hooks folder ([4fc985e](https://github.com/PixsysBE/CakeRelease/commit/4fc985e9013315aa47e16efb59f8af08c1dcabdc))
+* minor fixes ([d2114b2](https://github.com/PixsysBE/CakeRelease/commit/d2114b27998cc8513ccb0fea9c4998316c5c5ed9))
+
 ## [1.8.5](https://github.com/PixsysBE/CakeRelease/compare/v1.8.4...v1.8.5) (2024-07-04)
 
 
