@@ -3,15 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <!-- <Title>Cake Release</Title>
-    <Description>Cake Release description</Description>
-    <Company>Pixsys</Company>
-    <PackageId>CakeRelease</PackageId>
-    <Authors>Sylvain Signore</Authors>
-    <IsPackable>true</IsPackable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Deterministic>false</Deterministic>
-    <PackageReadmeFile>README.md</PackageReadmeFile> -->
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\icon.png" />
@@ -76,8 +67,6 @@
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg">
     </None>
     <None Include=".build\CakeRelease\Package\nuspec.sample" />
-    <None Include=".build\CakeRelease\Powershell\functions.ps1" />
-    <None Include=".build\CakeRelease\Powershell\settings.ps1" />
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
     </None>
@@ -87,6 +76,7 @@
     <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include=".build\CakeRelease\Powershell\" />
     <Folder Include=".build\CakeRelease\Semantic\Artifacts\" />
     <Folder Include=".build\CakeRelease\Semantic\docs\" />
   </ItemGroup>

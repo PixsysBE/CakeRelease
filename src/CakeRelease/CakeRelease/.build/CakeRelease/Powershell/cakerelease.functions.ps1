@@ -57,6 +57,9 @@ function Copy-Git-Hooks {
         [string]$destinationFolder,
         [switch]$verbose
     )
+    if($verbose.IsPresent){
+        Write-Host "Copying Git Hooks..."
+    }
     $xml = [xml](Get-Content $filePath)
     $saveFile = $false
 
@@ -134,14 +137,17 @@ function Confirm-Nuspec-Properties {
     Save-File -filePath $filePath -saveFile $saveFile -verbose:$verbose
 
     if($saveFile -eq $false){
-        Write-Host "All required properties exist in $($filePath)"  
+        Write-Host "All required properties exist in .nuspec" -NoNewline
+        if($verbose.IsPresent){
+            Write-Host ": $($filePath)"
+        }
     }
 
     return [PSCustomObject]@{
-        Id = '"' +$xml.package.metadata.id + '"'
-        Title = '"' +$xml.package.metadata.title + '"'
-        Description = '"' +$xml.package.metadata.description + '"'
-        Authors = '"' +$xml.package.metadata.authors + '"'
+        Id = '"' + $xml.package.metadata.id + '"'
+        Title = '"' + $xml.package.metadata.title + '"'
+        Description = '"' + $xml.package.metadata.description + '"'
+        Authors = '"' + $xml.package.metadata.authors + '"'
     }
 }
 
@@ -165,7 +171,7 @@ function Test-NuSpec-Exists {
         [string]$defaultPath,
         [switch]$verbose
     )
-    
+    Write-Host ".nuspec path: " $nuspecFilePath
     if ([string]::IsNullOrWhiteSpace($nuspecFilePath)) {
         $nuspecPath = Join-Path -Path $rootPath -ChildPath ".\.build\CakeRelease\Package\${nuspec}"
         if (Test-Path $nuspecPath) {
@@ -175,7 +181,7 @@ function Test-NuSpec-Exists {
             }
         }
         else {
-            Write-Host "no .nuspec found "
+            Write-Host "no .nuspec found at path ${nuspecPath}"
             exit 1
         }
     }
@@ -224,19 +230,19 @@ function Format-With-Double-Backslash{
         [string]$string
     )
     for ($i = 0; $i -lt $string.Length; $i++) {
-        # Si le caractère est un backslash
+        # If the character is a backslash
         if ($string[$i] -eq '\') {
-            # Si le backslash est suivi d'un autre backslash
+            # If the backslash is followed by another backslash
             if (($i + 1) -lt $string.Length -and $string[$i + 1] -eq '\') {
-                # Ajouter les deux backslashes au résultat et sauter le prochain caractère
+                # Add the two backslashes to the result and skip the next character
                 $result += '\\'
                 $i++
             } else {
-                # Ajouter un double backslash au résultat
+                # Add a double backslash to the result
                 $result += '\\'
             }
         } else {
-            # Ajouter le caractère courant au résultat
+            # Add the current character to the result
             $result += $string[$i]
         }
     }
