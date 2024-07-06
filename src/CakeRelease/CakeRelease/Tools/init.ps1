@@ -22,9 +22,11 @@ $currentDirectory = Get-Location
 $overrideFiles = @(".build\CakeRelease\build.ps1",
                    ".build\CakeRelease\Cake\build.cake",
                    ".build\CakeRelease\Git\Hooks\commit-msg",
-                   ".build\CakeRelease\Powershell\bootstrapRelease.ps1",
+                   ".build\CakeRelease\Powershell\cakerelease.functions.ps1",
+                   ".build\CakeRelease\Powershell\cakerelease.settings.ps1",
                    ".build\CakeRelease\Semantic\Config\github.js",
                    ".build\CakeRelease\Semantic\Config\main.js",
+                   ".build\CakeRelease\Semantic\Config\nuget.js",
                    ".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh",
                    ".config\dotnet-tools.json"
                   )
