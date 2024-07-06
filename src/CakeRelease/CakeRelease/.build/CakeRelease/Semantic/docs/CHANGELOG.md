@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/PixsysBE/CakeRelease/compare/v1.9.0...v1.9.1) (2024-07-06)
+
+
+### Bug Fixes
+
+* use absolute path ([3e61a55](https://github.com/PixsysBE/CakeRelease/commit/3e61a55696c6dfb5fd62269cacb86f9e556174cb))
+
 # [1.9.0](https://github.com/PixsysBE/CakeRelease/compare/v1.8.10...v1.9.0) (2024-07-06)
 
 
