@@ -1,3 +1,10 @@
+## [1.8.10](https://github.com/PixsysBE/CakeRelease/compare/v1.8.9...v1.8.10) (2024-07-06)
+
+
+### Bug Fixes
+
+* overridden files ([d18c471](https://github.com/PixsysBE/CakeRelease/commit/d18c47172d33e53558b83df5966956c16c371669))
+
 ## [1.8.9](https://github.com/PixsysBE/CakeRelease/compare/v1.8.8...v1.8.9) (2024-07-05)
 
 
