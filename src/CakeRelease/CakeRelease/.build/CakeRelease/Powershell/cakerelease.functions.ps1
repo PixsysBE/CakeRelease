@@ -165,6 +165,27 @@ function Save-File {
     } 
 }
 
+# Ensures the path will be absolute
+function Use-Absolute-Path {
+    param (
+        [string]$fromPath,
+        [string]$relativePath    
+    )
+
+if([System.IO.Path]::IsPathRooted($relativePath))
+{
+    # Ensures that the last character on the extraction path is the directory separator char.
+    if(-not $relativePath.EndsWith([System.IO.Path]::DirectorySeparatorChar.ToString(), [StringComparison]::Ordinal)){
+        $relativePath += [System.IO.Path]::DirectorySeparatorChar;
+    }
+    return $relativePath
+}
+else 
+{
+    return Resolve-Path -Path (Join-Path -Path $fromPath -ChildPath $relativePath)
+}
+}
+
 function Test-NuSpec-Exists {
     param (
         [string]$nuspecFilePath,
@@ -184,7 +205,7 @@ function Test-NuSpec-Exists {
             exit 1
         }
     }
-    return $nuspecFilePath
+    return Use-Absolute-Path -relativePath $nuspecFilePath -fromPath $cakeReleaseDirectory
 }
 
 # Get csproj path
