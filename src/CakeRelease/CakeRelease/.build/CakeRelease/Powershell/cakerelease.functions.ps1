@@ -168,21 +168,25 @@ function Save-File {
 # Ensures the path will be absolute
 function Use-Absolute-Path {
     param (
-        [string]$fromPath,
-        [string]$relativePath    
+        [string]$isRelativeFromPath,
+        [string]$path,
+        [switch]$isDirectory    
     )
 
-if([System.IO.Path]::IsPathRooted($relativePath))
+if(([System.IO.Path]::IsPathRooted($path)) -and ($isDirectory.IsPresent))
 {
     # Ensures that the last character on the extraction path is the directory separator char.
-    if(-not $relativePath.EndsWith([System.IO.Path]::DirectorySeparatorChar.ToString(), [StringComparison]::Ordinal)){
-        $relativePath += [System.IO.Path]::DirectorySeparatorChar;
+    if(-not $path.EndsWith([System.IO.Path]::DirectorySeparatorChar.ToString(), [StringComparison]::Ordinal)){
+        $path += [System.IO.Path]::DirectorySeparatorChar;
     }
-    return $relativePath
+    return $path
 }
 else 
 {
-    return Resolve-Path -Path (Join-Path -Path $fromPath -ChildPath $relativePath)
+    if ([string]::IsNullOrWhiteSpace($isRelativeFromPath)) {
+        return Resolve-Path $path
+    } 
+    return Resolve-Path -Path (Join-Path -Path $isRelativeFromPath -ChildPath $path)
 }
 }
 
@@ -199,13 +203,14 @@ function Test-NuSpec-Exists {
             if($verbose.IsPresent){ 
             Write-Host ".nuspec path: " $nuspecFilePath
             }
+            return $nuspecFilePath
         }
         else {
             Write-Host "no .nuspec found at path ${nuspecPath}"
             exit 1
         }
     }
-    return Use-Absolute-Path -relativePath $nuspecFilePath -fromPath $cakeReleaseDirectory
+    return Use-Absolute-Path -path $nuspecFilePath -isRelativeFromPath $cakeReleaseDirectory
 }
 
 # Get csproj path
