@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/PixsysBE/CakeRelease/compare/v1.9.1...v1.9.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* moved files ([b7863ae](https://github.com/PixsysBE/CakeRelease/commit/b7863aee1a9c7206b2ebe5baff6b666062f3c0e3))
+
 ## [1.9.1](https://github.com/PixsysBE/CakeRelease/compare/v1.9.0...v1.9.1) (2024-07-06)
 
 
