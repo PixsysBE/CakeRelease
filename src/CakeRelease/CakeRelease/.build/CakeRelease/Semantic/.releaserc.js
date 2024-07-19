@@ -24,9 +24,7 @@ module.exports = {
         // the artifacts folder to NuGet
         [
             "@semantic-release/exec", {
-                //"verifyConditionsCmd": "./verify.sh",
-                //"publishCmd": "Scripts/publishReleaseToGitHub.sh" //"dotnet nuget push .\\Artifacts\\*.nupkg -s ${process.env.NUGETSOURCE}"
-                "publishCmd": "dotnet nuget push .\\Artifacts\\*.nupkg -s ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}; dotnet nuget push .\\Artifacts\\*.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json;"
+                "publishCmd": ".\\Scripts\\publishPackageToNuget.sh --token ${process.env.NUGET_TOKEN} --source ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}"
             }
         ]
     ],

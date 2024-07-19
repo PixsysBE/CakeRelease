@@ -1,12 +1,10 @@
 function Confirm-Package-Json-Properties {
     param (
         [string]$filePath,
-        [string]$packageId,
-        [switch]$verbose
+        [string]$packageId
     )
-    if($verbose.IsPresent){ 
-        Write-Host "Checking package.json path: " $filePath
-        }
+
+    Write-Verbose ("[Confirm-Package-Json-Properties] Checking package.json path: $filePath")
     # Check if the file exists
     if (Test-Path $filePath) {
         # Read the content of the file
@@ -54,12 +52,9 @@ function Copy-Git-Hooks {
     param (
         [string]$filePath,
         [string]$includePath,
-        [string]$destinationFolder,
-        [switch]$verbose
+        [string]$destinationFolder
     )
-    if($verbose.IsPresent){
-        Write-Host "Copying Git Hooks..."
-    }
+    Write-Verbose ("[Copy-Git-Hooks] Copying Git Hooks...")
     $xml = [xml](Get-Content $filePath)
     $saveFile = $false
 
@@ -89,13 +84,12 @@ function Copy-Git-Hooks {
     $saveFile=$true
     Write-Host "Git Hooks added to $($filePath)"
     }    
-    Save-File -filePath $filePath -saveFile $saveFile -verbose:$verbose
+    Save-File -filePath $filePath -saveFile $saveFile
 }
 
 function Confirm-Nuspec-Properties {
     param (
-        [string]$filePath,
-        [switch]$verbose
+        [string]$filePath
     )
     $xml = [xml](Get-Content $filePath)
     $missingProperties = @()
@@ -134,13 +128,11 @@ function Confirm-Nuspec-Properties {
         }
     } 
 
-    Save-File -filePath $filePath -saveFile $saveFile -verbose:$verbose
+    Save-File -filePath $filePath -saveFile $saveFile
 
     if($saveFile -eq $false){
         Write-Host "All required properties exist in .nuspec" -NoNewline
-        if($verbose.IsPresent){
-            Write-Host ": $($filePath)"
-        }
+        Write-Verbose ("[Confirm-Nuspec-Properties] Saving file to: $($filePath)")
     }
 
     return [PSCustomObject]@{
@@ -154,8 +146,7 @@ function Confirm-Nuspec-Properties {
 function Save-File {
     param (
         [string]$filePath,
-        $saveFile,
-        [switch]$verbose
+        $saveFile
     )
     if($saveFile -eq $true)
     {
@@ -193,16 +184,13 @@ else
 function Test-NuSpec-Exists {
     param (
         [string]$nuspecFilePath,
-        [string]$defaultPath,
-        [switch]$verbose
+        [string]$defaultPath
     )
     if ([string]::IsNullOrWhiteSpace($nuspecFilePath)) {
-        $nuspecPath = Join-Path -Path $rootPath -ChildPath ".\.build\CakeRelease\Package\${nuspec}"
+        $nuspecPath = Join-Path -Path $rootPath -ChildPath $defaultPath
         if (Test-Path $nuspecPath) {
             $nuspecFilePath = Resolve-Path $nuspecPath
-            if($verbose.IsPresent){ 
-            Write-Host ".nuspec path: " $nuspecFilePath
-            }
+            Write-Verbose ("[Test-NuSpec-Exists] .nuspec path: $nuspecFilePath")
             return $nuspecFilePath
         }
         else {
@@ -216,8 +204,7 @@ function Test-NuSpec-Exists {
 # Get csproj path
 function Get-Csproj-Path{
     param (
-        [string]$csprojPath,
-        [switch]$verbose
+        [string]$csprojPath
 )
 
 if ([string]::IsNullOrWhiteSpace($csprojPath)) {
@@ -232,9 +219,7 @@ if ([string]::IsNullOrWhiteSpace($csprojPath)) {
         $csprojPath = $csprojFiles[0].FullName
     }
 }
-if($verbose.IsPresent){ 
-    Write-Host "csprojPath: " $csprojPath
-}
+Write-Verbose ("[Get-Csproj-Path] csprojPath: $csprojPath")
 return $csprojPath
 }
 

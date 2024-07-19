@@ -28,11 +28,11 @@ $overrideFiles = @(".build\CakeRelease\build.ps1",
                    ".build\CakeRelease\Semantic\Config\main.js",
                    ".build\CakeRelease\Semantic\Config\nuget.js",
                    ".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh",
-                   ".config\dotnet-tools.json"
+                   ".config\dotnet-tools.json",
+                   ".config\nuspec.sample"
                   )
 
 # Copy root files
-Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "./.nuspec") -Destination $currentDirectory
 Copy-New-Item -Path (Join-Path -Path $installPath -ChildPath "./package.json") -Destination $currentDirectory
 
 # Copy folder files

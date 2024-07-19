@@ -11,10 +11,9 @@
   </metadata>
   <files>
     <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js" />
-    <file src=".config\" target=".config" />
+    <file src=".config\" target=".config" exclude=".config\release.nuspec" />
     <file src="Tools\" target="tools" />
     <file src="package.json" target="package.json" />
-    <!-- <file src="nuspec" target=".nuspec" /> -->
     <file src="..\..\..\README.md" target="README.md" />
   </files>
 </package>

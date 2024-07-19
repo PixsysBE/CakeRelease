@@ -20,8 +20,7 @@
       <PackagePath>
       </PackagePath>
     </None>
-    <None Include=".build\CakeRelease\build.ps1">
-    </None>
+    <None Include=".build\CakeRelease\cakerelease.ps1" />
     <None Include=".build\CakeRelease\Cake\build.cake">
     </None>
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Figlet.2.0.1\.signature.p7s" />
@@ -66,7 +65,8 @@
     <None Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\lib\netstandard2.0\Cake.Npx.dll" />
     <None Include=".build\CakeRelease\Git\Hooks\commit-msg">
     </None>
-    <None Include=".build\CakeRelease\Package\nuspec.sample" />
+    <None Include=".build\CakeRelease\Powershell\cakerelease.functions.ps1" />
+    <None Include=".build\CakeRelease\Powershell\cakerelease.settings.ps1" />
     <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
     </None>
@@ -74,9 +74,10 @@
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\nuget.js" />
     <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh" />
+    <None Include=".config\nuspec.sample" />
+    <None Include=".config\release.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include=".build\CakeRelease\Powershell\" />
     <Folder Include=".build\CakeRelease\Semantic\Artifacts\" />
     <Folder Include=".build\CakeRelease\Semantic\docs\" />
   </ItemGroup>
