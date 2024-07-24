@@ -19,7 +19,7 @@ $currentDirectory = Get-Location
 # Write-Host "toolsPath: " $toolsPath
 # Write-Host "currentDirectory: " $currentDirectory
 
-$overrideFiles = @(".build\CakeRelease\build.ps1",
+$overrideFiles = @(".build\CakeRelease\cakerelease.ps1",
                    ".build\CakeRelease\Cake\build.cake",
                    ".build\CakeRelease\Git\Hooks\commit-msg",
                    ".build\CakeRelease\Powershell\cakerelease.functions.ps1",
