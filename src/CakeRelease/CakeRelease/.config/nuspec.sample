@@ -5,10 +5,15 @@
     <title></title>
     <description></description>
     <authors></authors>
-    <version></version>
+    <version>0.0.0.0</version>
     <readme>README.md</readme>
+    <projectUrl></projectUrl>
   </metadata>
   <files>
-    <!-- <file src="nuspec" target=".nuspec" /> -->
+    <!-- 
+    Some examples, please set files and folders you want to be included in your package
+    <file src="Controllers\" target="Controllers\" />
+    <file src="nuspec" target=".nuspec" /> 
+    -->
   </files>
 </package>

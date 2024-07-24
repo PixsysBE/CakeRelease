@@ -1,3 +1,57 @@
+<#
+.SYNOPSIS
+Ensure csproj has all the properties needed
+#>
+function Confirm-csproj-properties{
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$filePath
+    )
+
+    $ErrorActionPreference = 'Stop'   
+
+    if((Test-Path -Path $csprojPath) -eq $false){
+        Write-Host "[Confirm-csproj-properties] Path $csprojPath does not exist" -foregroundColor Red
+        exit 1
+    }
+    Write-Verbose ("[Confirm-csproj-properties] csprojPath: $($csprojPath)")
+
+    # Get csproj
+    $csproj = Get-Item -Path $csprojPath
+    # Load the XML content of the csproj file
+    $xml = [xml](Get-Content $csproj.FullName)
+    # Potential missing properties that does not require user input
+    $noInputProperties = @(
+        @{
+            xmlProperty = $xml.Project.PropertyGroup.IsPackable
+            name = "IsPackable"
+            value = "true"
+        }
+    )
+
+    $propertyGroup = $xml.Project.PropertyGroup
+    $saveFile = $false
+    foreach ($row in $noInputProperties) {
+        if ($null -eq $row.xmlProperty) {
+        $propertyElement = $xml.CreateElement($row.name)
+        $propertyElement.InnerText = $row.value
+        $propertyGroup.AppendChild($propertyElement)
+        $saveFile = $true
+        }
+    }
+
+    Save-File -filePath $filePath -saveFile $saveFile
+
+    if($saveFile -eq $false)
+    {
+        Write-Host "All required properties exist in $($csproj.Name)"  
+    }
+}
+
+<#
+.SYNOPSIS
+Ensure package.json has all the properties needed
+#>
 function Confirm-Package-Json-Properties {
     param (
         [string]$filePath,
@@ -48,6 +102,10 @@ function Confirm-Package-Json-Properties {
     }
 }
 
+<#
+.SYNOPSIS
+Copy Git Hooks
+#>
 function Copy-Git-Hooks {
     param (
         [string]$filePath,
@@ -87,6 +145,10 @@ function Copy-Git-Hooks {
     Save-File -filePath $filePath -saveFile $saveFile
 }
 
+<#
+.SYNOPSIS
+Ensure .nuspec has all the properties needed
+#>
 function Confirm-Nuspec-Properties {
     param (
         [string]$filePath
@@ -131,7 +193,7 @@ function Confirm-Nuspec-Properties {
     Save-File -filePath $filePath -saveFile $saveFile
 
     if($saveFile -eq $false){
-        Write-Host "All required properties exist in .nuspec" -NoNewline
+        Write-Host "All required properties exist in .nuspec"
         Write-Verbose ("[Confirm-Nuspec-Properties] Saving file to: $($filePath)")
     }
 
@@ -156,7 +218,10 @@ function Save-File {
     } 
 }
 
-# Ensures the path will be absolute
+<#
+.SYNOPSIS
+Ensures the path will be absolute
+#>
 function Use-Absolute-Path {
     param (
         [string]$isRelativeFromPath,
@@ -201,7 +266,10 @@ function Test-NuSpec-Exists {
     return Use-Absolute-Path -path $nuspecFilePath -isRelativeFromPath $cakeReleaseDirectory
 }
 
-# Get csproj path
+<#
+.SYNOPSIS
+ Gets csproj path
+#>
 function Get-Csproj-Path{
     param (
         [string]$csprojPath
@@ -235,6 +303,10 @@ function Confirm-String-Parameter {
     return $param
 }
 
+<#
+.SYNOPSIS
+Formats path with double backslash
+#>
 function Format-With-Double-Backslash{
     param (
         [string]$string

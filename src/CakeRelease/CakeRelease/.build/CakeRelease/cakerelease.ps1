@@ -53,6 +53,9 @@ $packageJsonProperties = Confirm-Package-Json-Properties -filePath $packageJsonP
 $csprojPath = Get-Csproj-Path -csprojPath $csprojPath
 Copy-Git-Hooks -filePath $csprojPath -includePath $csprojTargetGitHooksCommitMsgPath -destinationFolder $csprojTargetGitHooksCommitMsgDestinationFolder
 
+# Ensure csproj has all the properties needed
+Confirm-csproj-properties -filePath $csprojPath
+
 # Create Semantic release config file based on parameters
 $releaseConfig = (Get-Content -Path $mainConfigPath) -replace "{%GITHUB%}", $githubConfig
 $releaseConfig = $releaseConfig -replace "{%NUGET%}", $nugetConfig
