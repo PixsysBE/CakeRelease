@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/PixsysBE/CakeRelease/compare/v1.10.0...v1.10.1) (2024-07-24)
+
+
+### Bug Fixes
+
+* script name to override ([9b444ed](https://github.com/PixsysBE/CakeRelease/commit/9b444ed6f3ede862eef3b4de599d9b8645750b1b))
+
 # [1.10.0](https://github.com/PixsysBE/CakeRelease/compare/v1.9.2...v1.10.0) (2024-07-24)
 
 
