@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/PixsysBE/CakeRelease/compare/v1.9.2...v1.10.0) (2024-07-24)
+
+
+### Features
+
+* ensure csproj has all the properties needed ([443529c](https://github.com/PixsysBE/CakeRelease/commit/443529c0d35313f79f9dec23df100a63bebff53c))
+
 ## [1.9.2](https://github.com/PixsysBE/CakeRelease/compare/v1.9.1...v1.9.2) (2024-07-19)
 
 
