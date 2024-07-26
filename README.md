@@ -170,13 +170,12 @@ Set up your XML manifest to provide information and include files in your packag
     <readme>README.md</readme>
     <projectUrl></projectUrl>
   </metadata>
-  <files>
-    <!-- 
+  <!-- <files>
     Some examples, please set files and folders you want to be included in your package
-    <file src="Controllers\" target="Controllers\" />
+    <file src="bin\Release\**\*.dll" target="lib" />
+    <file src="Docs\" target="Docs\" />
     <file src="nuspec" target=".nuspec" /> 
-    -->
-  </files>
+  </files> -->
 </package>
 ```
 
