@@ -1,3 +1,11 @@
+## [1.10.2](https://github.com/PixsysBE/CakeRelease/compare/v1.10.1...v1.10.2) (2024-07-26)
+
+
+### Bug Fixes
+
+* corrected readme ([d17280d](https://github.com/PixsysBE/CakeRelease/commit/d17280d509546a97ad4eadb678dd7d24de6eecda))
+* corrected readme ([20e0a30](https://github.com/PixsysBE/CakeRelease/commit/20e0a308f9c229537ac27d20f99545b9fef576b7))
+
 ## [1.10.1](https://github.com/PixsysBE/CakeRelease/compare/v1.10.0...v1.10.1) (2024-07-24)
 
 
