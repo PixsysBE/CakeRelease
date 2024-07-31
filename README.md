@@ -1,4 +1,5 @@
-﻿# Cake Release
+﻿[![Nuget](https://img.shields.io/nuget/v/CakeRelease.svg)](https://www.nuget.org/packages/CakeRelease)
+# Cake Release
 
 **Cake Release** is a combination of [Powershell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4) scripts, [Cake Build](https://cakebuild.net/) script and [Semantic Release](https://github.com/semantic-release), automating build and deployment workflows of your .NET project.
 
@@ -87,7 +88,7 @@ $securePasswordPath = 'C:\automation\passwd.xml'
 $credential.Password |  Export-Clixml -Path $securePasswordPath
 ```
 
-### Configure your vault
+### Register and configure your vault
 
 Next you must configure the SecretStore vault. The configuration sets user interaction to None, so that SecretStore never prompts the user. The configuration requires a password, and the password is passed in as a SecureString object. The -Confirm:false parameter is used so that PowerShell does not prompt for confirmation.
 
@@ -138,10 +139,9 @@ You should have a folder structure similar to this :
 │   │   │   ├── /CakeRelease
 │   │   │   │   ├── /Cake
 │   │   │   │   ├── /Git
-│   │   │   │   ├── /Package
 │   │   │   │   ├── /Powershell
 │   │   │   │   ├── /Semantic
-│   │   │   ├── build.ps1
+│   │   │   ├── cakerelease.ps1
 │   │   ├── /node_modules
 │   │   ├── Project.sln
 │   │   ├── package.json
@@ -156,7 +156,7 @@ You should have a folder structure similar to this :
 
 ## Set up your nuspec file
 
-Set up your XML manifest to provide information and include files in your package. Rename the .config\nuspec.sample into .config\.nuspec and start customizing it :
+Set up your XML manifest to provide information and include files in your package. Rename the .config\nuspec.sample into .config\\.nuspec and start customizing it :
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -181,10 +181,10 @@ Set up your XML manifest to provide information and include files in your packag
 
 ## Run Cake release
 
-Run the build command located in the .build/CakeRelease folder:
+Run the build command located in the .build\CakeRelease folder:
 
 ```powershell
-.\.build\CakeRelease\build.ps1 -securePasswordPath "C:\Automation\securestorepasswd.xml" -vault YourVaultName -createGithubRelease -publishToSource <NUGET_SOURCE>
+.\.build\CakeRelease\cakerelease.ps1 -securePasswordPath "C:\Automation\securestorepasswd.xml" -vault YourVaultName -createGithubRelease -publishToSource <NUGET_SOURCE>
 ```
 
 Required parameters:
