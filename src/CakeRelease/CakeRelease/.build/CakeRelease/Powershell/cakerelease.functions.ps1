@@ -276,7 +276,7 @@ function Get-Csproj-Path{
 )
 
 if ([string]::IsNullOrWhiteSpace($csprojPath)) {
-    $csprojFiles = Get-ChildItem -Path $rootPath -Recurse -Filter *.csproj | Where-Object { $_.Name -notmatch "\.Tests\.csproj$" }
+    $csprojFiles = Get-Files -Path $rootPath -Filter *.csproj -Exclude node_modules | Where-Object { $_.Name -notmatch "\.Tests\.csproj$" }
     # Check if only one csproj file exists
     if ($csprojFiles.Count -ne 1)
     {
@@ -329,4 +329,35 @@ function Format-With-Double-Backslash{
         }
     }
     return $result
+}
+
+<#
+.SYNOPSIS
+Get files excluding specific folder in the search
+#>
+function Get-Files {
+    param (
+        [string]$Path,
+        [string]$Filter,
+        [string]$Exclude
+    )
+
+    try {
+        $items = Get-ChildItem -Path $Path -ErrorAction Stop
+        foreach ($item in $items) {
+            if ($item.PSIsContainer) {
+                if ($item.Name -ne $Exclude) {
+                    Get-Files -Path $item.FullName -Filter $Filter -Exclude $Exclude
+                }
+            }
+            else {
+                if ($item.Name -like $Filter) {
+                    $item
+                }
+            }
+        }
+    }
+    catch {
+        Write-Warning "Unable to access path: $Path. Error: $_"
+    }
 }

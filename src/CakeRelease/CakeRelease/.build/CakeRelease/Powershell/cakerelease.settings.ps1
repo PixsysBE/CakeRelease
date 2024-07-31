@@ -5,7 +5,7 @@ $env:DOTNET_NOLOGO = '1'
 # Relative path from PSScriptRoot
 $rootPathFolder = "../.."
 
-$rootPath = Resolve-Path (Join-Path -Path $cakeReleaseDirectory -ChildPath $rootPathFolder)
+$rootPath = Use-Absolute-Path (Join-Path -Path $cakeReleaseDirectory -ChildPath $rootPathFolder)
 $semanticConfigPath = Join-Path -Path $cakeReleaseDirectory -ChildPath ".\Semantic\Config\"
 $mainConfigPath = Join-Path -Path $semanticConfigPath -ChildPath ".\main.js"
 $releaseConfigPath = Join-Path -Path $semanticConfigPath -ChildPath "../.releaserc.js"
