@@ -26,6 +26,17 @@ function Confirm-csproj-properties{
             xmlProperty = $xml.Project.PropertyGroup.IsPackable
             name = "IsPackable"
             value = "true"
+        },
+        # Allows creation of pre-releases versions because the specified version string does not conform to the required format 
+        @{
+            xmlProperty = $xml.Project.PropertyGroup.GenerateAssemblyInfo
+            name = "GenerateAssemblyInfo"
+            value = "False"
+        },
+        @{
+            xmlProperty = $xml.Project.PropertyGroup.Deterministic
+            name = "Deterministic"
+            value = "False"
         }
     )
 
