@@ -7,21 +7,30 @@ param (
 	[switch]$createGithubRelease,
 	[switch]$autoBuild,
 	[string]$csprojPath,
-	[string]$nuspecFilePath
+	[string]$nuspecFilePath,
+
+	[string]$launcherScriptDirectory=$PSScriptRoot # Directory containing launcher
 )
 
 $ErrorActionPreference = 'Stop'
 
+# Directory where the script is called
 $currentDirectory = Get-Location
-$cakeReleaseDirectory = $PSScriptRoot
+# Directory containing cakerelease.ps1
+$cakeReleaseScriptDirectory = $PSScriptRoot
+
+Write-Verbose ("Welcome to cake release.ps1!")
+Write-Verbose ("currentDirectory: $currentDirectory")
+Write-Verbose ("launcherScriptDirectory: $launcherScriptDirectory")
+Write-Verbose ("cakeReleaseScriptDirectory: $cakeReleaseScriptDirectory")
 
 # Import variables and scripts
 $scriptsFolder = ".\Powershell\"
 . (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}cakerelease.functions.ps1")
 . (Join-Path -Path $PSScriptRoot -ChildPath "${scriptsFolder}cakerelease.settings.ps1")
 
-# Set location to cakeReleaseDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
-Set-Location -LiteralPath $cakeReleaseDirectory
+# Set location to cakeReleaseScriptDirectory because PSScriptRoot changed due to the imported scripts not in the same folder
+Set-Location -LiteralPath $cakeReleaseScriptDirectory
 
 # Ensure script required variables exist
 $securePasswordPath = Confirm-String-Parameter -param $securePasswordPath -prompt "Please enter the secure password path" 
@@ -60,10 +69,13 @@ Confirm-csproj-properties -filePath $csprojPath
 # Create Semantic release config file based on parameters
 $releaseConfig = (Get-Content -Path $mainConfigPath) -replace "{%GITHUB%}", $githubConfig
 $releaseConfig = $releaseConfig -replace "{%NUGET%}", $nugetConfig
-Out-File -FilePath $releaseConfigPath -InputObject $releaseConfig -encoding UTF8
+Confirm-Folder-Structure -path $releaseConfigDirectory -filename $releaseConfigFileName
+Out-File -FilePath "$releaseConfigDirectory\$releaseConfigFileName" -InputObject $releaseConfig -encoding UTF8
 
 # Cake build
-Set-Location -LiteralPath $cakePath
+# $test = Get-Location
+# Write-Verbose "location before tool restore : $test"
+Set-Location -LiteralPath $rootPath
 
 dotnet tool restore
 if ($LASTEXITCODE -ne 0) { 
@@ -71,7 +83,9 @@ if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE 
 }
 
-dotnet cake --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath --changelogVersion $packageJsonProperties.changelogVersion --execVersion $packageJsonProperties.execVersion --gitVersion $packageJsonProperties.gitVersion --semanticReleaseVersion $packageJsonProperties.semanticReleaseVersion
+# Set-Location -LiteralPath $cakePath
+Write-Verbose "build.cake path : $buildCakePath"
+dotnet cake $buildCakePath --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath --changelogVersion $packageJsonProperties.changelogVersion --execVersion $packageJsonProperties.execVersion --gitVersion $packageJsonProperties.gitVersion --semanticReleaseVersion $packageJsonProperties.semanticReleaseVersion
 
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory

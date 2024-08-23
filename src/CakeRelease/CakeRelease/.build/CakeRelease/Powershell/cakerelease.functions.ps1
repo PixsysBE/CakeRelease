@@ -123,37 +123,42 @@ function Copy-Git-Hooks {
         [string]$includePath,
         [string]$destinationFolder
     )
+
     Write-Verbose ("[Copy-Git-Hooks] Copying Git Hooks...")
     $xml = [xml](Get-Content $filePath)
-    $saveFile = $false
 
-    $target = $xml.Project.Target
+    $target = $xml.Project.Target | Where-Object { $_.Name -eq "CopyCakeReleaseGitHooks" }
     if ($null -eq $target) {
+        # Si le Target n'existe pas, on le crée et on l'ajoute au projet
         $target = $xml.CreateElement("Target")
-        $target.SetAttribute("Name", "CopyCustomContent")
+        $target.SetAttribute("Name", "CopyCakeReleaseGitHooks")
         $target.SetAttribute("AfterTargets", "AfterBuild")
         $xml.Project.AppendChild($target)
     }
 
-    $existingItemGroup = $xml.Project.SelectNodes("//Target[@Name='CopyCustomContent']/ItemGroup/_CustomFiles[@Include='$($includePath)']")
-    if ($existingItemGroup.Count -eq 0) {
-    # The specified content doesn't exist, so add it
+    $xmlGroups = @("//Target[@Name='CopyCakeReleaseGitHooks']/ItemGroup", "//Target[@Name='CopyCakeReleaseGitHooks']/Copy")
+    foreach($xmlGroup in $xmlGroups){
+        $existingNodes = $xml.SelectNodes($xmlGroup)
+        if ($existingNodes.Count -gt 0) {
+            foreach ($node in $existingNodes) {
+                $node.ParentNode.RemoveChild($node) | Out-Null
+            }
+        }   
+    }
+
     $itemGroup = $xml.CreateElement("ItemGroup")
     $customFiles = $xml.CreateElement("_CustomFiles")
-    $customFiles.SetAttribute("Include", "$($includePath)")
+    $customFiles.SetAttribute("Include", $includePath)
     $itemGroup.AppendChild($customFiles)
     $target.AppendChild($itemGroup)
 
     $copyElement = $xml.CreateElement("Copy")
     $copyElement.SetAttribute("SourceFiles", "@(_CustomFiles)")
-    $copyElement.SetAttribute("DestinationFolder", $($destinationFolder))
+    $copyElement.SetAttribute("DestinationFolder", $destinationFolder)
     $target.AppendChild($copyElement)
 
-    # Save the changes to the csproj file
-    $saveFile=$true
     Write-Host "Git Hooks added to $($filePath)"
-    }    
-    Save-File -filePath $filePath -saveFile $saveFile
+    Save-File -filePath $filePath -saveFile $true
 }
 
 <#
@@ -274,7 +279,7 @@ function Test-NuSpec-Exists {
             exit 1
         }
     }
-    return Use-Absolute-Path -path $nuspecFilePath -isRelativeFromPath $cakeReleaseDirectory
+    return Use-Absolute-Path -path $nuspecFilePath -isRelativeFromPath $cakeReleaseScriptDirectory
 }
 
 <#
@@ -370,5 +375,96 @@ function Get-Files {
     }
     catch {
         Write-Warning "Unable to access path: $Path. Error: $_"
+    }
+}
+
+<#
+.SYNOPSIS
+Gets relative path from absolute paths
+#>
+function Get-Relative-Path-From-Absolute-Paths {
+    param (
+        [string]$fromPath,    # Chemin absolu du dossier d'origine
+        [string]$toPath       # Chemin absolu du dossier cible
+    )
+
+    # Normalise les chemins (supprime les barres obliques inverses finales)
+    $fromPath = (Get-Item -LiteralPath $fromPath).FullName.TrimEnd('\')
+    $toPath = (Get-Item -LiteralPath $toPath).FullName.TrimEnd('\')
+
+    # Sépare les chemins en segments en utilisant le caractère [System.IO.Path]::DirectorySeparatorChar
+    $separator = [System.IO.Path]::DirectorySeparatorChar
+    $fromParts = $fromPath -split [Regex]::Escape($separator)
+    $toParts = $toPath -split [Regex]::Escape($separator)
+
+    # Trouve le premier segment différent entre les deux chemins
+    $commonLength = 0
+    for ($i = 0; $i -lt [math]::Min($fromParts.Length, $toParts.Length); $i++) {
+        if ($fromParts[$i] -ne $toParts[$i]) {
+            break
+        }
+        $commonLength++
+    }
+
+    # Nombre de ".." à ajouter pour remonter dans l'arborescence depuis le dossier d'origine
+    $upCount = $fromParts.Length - $commonLength
+    $relativePath = (".." + $separator) * $upCount
+
+    # Ajoute les segments du chemin cible restants
+    $relativePath += ($toParts[$commonLength..($toParts.Length - 1)] -join $separator)
+
+    # Retire la barre oblique inverse finale si elle est présente
+    return $relativePath.TrimEnd($separator)
+}
+
+
+<#
+.SYNOPSIS
+Finds .git folder relative path
+#>
+function Find-GitFolder-Relative-Path {
+    param (
+        [string]$currentPath = (Get-Location).Path,
+        [string]$relativePath = "",
+        [string]$fromAbsolutePath
+    )
+
+    $combinedPath = Join-Path -Path $currentPath -ChildPath $relativePath
+
+    if (Test-Path -Path (Join-Path -Path $combinedPath -ChildPath ".git")) {
+        $absolutePath = Join-Path ($combinedPath | Resolve-Path) ".git/hooks"
+        return Get-Relative-Path-From-Absolute-Paths -toPath $absolutePath -fromPath $fromAbsolutePath
+    }
+
+    $parentPath = Split-Path -Path $combinedPath -Parent
+    if ($parentPath -eq $combinedPath) {
+        return $null
+    }
+
+    return Find-GitFolder-Relative-Path -currentPath $parentPath -relativePath (Join-Path ".." $relativePath) -fromAbsolutePath $fromAbsolutePath
+}
+
+
+$path = "c:\temp\test"
+
+$filename = "test.zip"
+<#
+.SYNOPSIS
+Creates folders structure if it does not exist
+#>
+function Confirm-Folder-Structure {
+    param (
+        [string]$path,
+        [string]$filename
+    )
+    #if no folder exists, create one
+
+    if(-not (test-path $path)){
+        New-Item -Path $path -ItemType Directory
+    }
+
+    #if the file already exists, remove it
+    if(test-path "$path\$filename"){
+        remove-item -Path "$path\$filename" -Force
     }
 }

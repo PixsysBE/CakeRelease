@@ -91,7 +91,6 @@ Task("Default")
 
 Task("Build")
     .IsDependentOn("Run dotnet --info")
-    //.IsDependentOn("Parse-Json")
     .IsDependentOn("Clean")
     .IsDependentOn("Get next semantic version number")
     .IsDependentOn("Build solution")
@@ -136,7 +135,8 @@ Task("Get next semantic version number")
     .WithCriteria(shouldRelease || target == "Get next semantic version number" )
     .Does(() =>
 {
-        Context.Environment.WorkingDirectory = semanticDirectory;
+        // Context.Environment.WorkingDirectory = semanticDirectory;
+        Context.Environment.WorkingDirectory = Directory(rootPath);
         Information("Running semantic-release in dry run mode to extract next semantic version number");
 
         string[] semanticReleaseOutput;    

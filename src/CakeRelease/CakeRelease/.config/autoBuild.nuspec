@@ -10,10 +10,15 @@
     <projectUrl>https://github.com/PixsysBE/CakeRelease</projectUrl>
   </metadata>
   <files>
-    <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js" />
-    <file src=".config\" target=".config" exclude=".config\release.nuspec" />
+    <file src=".build\" target=".build\" exclude=".build\CakeRelease\Cake\tools\**\*;.build\CakeRelease\Semantic\docs\**\*;.build\CakeRelease\Semantic\.releaserc.js;" /> <!-- .build\CakeRelease\cakerelease.ps1 -->
+    <file src=".config\" target=".config" exclude=".config\autoBuild.nuspec;.config\dotnet-tools.json" />
     <file src="Tools\" target="tools" />
     <file src="package.json" target="package.json" />
     <file src="..\..\..\README.md" target="README.md" />
+    <file src="build\" target="build" />
+    <!-- <file src=".build\CakeRelease\cakerelease.ps1" target="contentFiles\any\any" /> -->
   </files>
+  <!-- <contentFiles>
+    <file include="any/any/cakerelease.ps1" buildAction="None" target="../.build/CakeRelease" />
+  </contentFiles> -->
 </package>
