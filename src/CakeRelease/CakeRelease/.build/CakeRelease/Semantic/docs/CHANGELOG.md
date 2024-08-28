@@ -1,3 +1,10 @@
+# [2.0.0-beta.2](https://github.com/PixsysBE/CakeRelease/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2024-08-28)
+
+
+### Features
+
+* updated targets file ([ccfac7a](https://github.com/PixsysBE/CakeRelease/commit/ccfac7a64ffaffaff2d1cb0d1b599951816a3173))
+
 # [2.0.0-beta.1](https://github.com/PixsysBE/CakeRelease/compare/v1.10.4...v2.0.0-beta.1) (2024-08-23)
 
 
