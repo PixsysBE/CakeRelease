@@ -157,6 +157,8 @@ Go to your root folder, You should have a folder structure similar to this :
 
 ## Set up your nuspec file
 
+> This step is not needed if you don't create any Github release or publish to any Nuget source
+
 Set up your XML manifest (located in your .config folder) to provide information and include files in your package:
 
 ```xml

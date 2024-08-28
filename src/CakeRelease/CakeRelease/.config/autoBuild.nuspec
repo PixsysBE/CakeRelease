@@ -5,7 +5,7 @@
     <title>Cake Release</title>
     <description>Cake Release is a combination of Powershell scripts, Cake Build script and Semantic Release, automating build and deployment workflows of your .NET project.</description>
     <authors>Sylvain Signore</authors>
-    <version>2.0.0-beta.1.7</version>
+    <version>2.0.0.0</version>
     <readme>README.md</readme>
     <projectUrl>https://github.com/PixsysBE/CakeRelease</projectUrl>
   </metadata>
