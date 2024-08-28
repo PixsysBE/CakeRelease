@@ -5,7 +5,7 @@
 
 The goal is to :
 
-- Enforce conventional commits using Git hooks
+- Enforce [conventional commit messages](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format) using Git hooks
 - Automatically calculate the next version number, and update your changelog
 - Create a release on GitHub with a full history of changes since the last release (if needed)
 - Publish your package to NuGet or any NuGet source (if needed)
