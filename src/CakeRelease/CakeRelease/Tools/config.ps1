@@ -1,3 +1,4 @@
+[CmdletBinding()]
 param($MSBuildThisFileDirectory, # The package build folder
 $MSBuildProjectDirectory, # The project Directory
 $MSBuildProjectName, # The project Name
@@ -39,7 +40,7 @@ function Update-Config-JsonFile {
     $json = $objectList | ConvertTo-Json -Depth 10 #-Compress
     try {
         $json | Out-File -FilePath $FilePath -Encoding UTF8
-        Write-Host "Fichier JSON mis à jour avec succès à l'emplacement: $FilePath"
+        Write-Verbose "JSON file successfully updated at location: $FilePath"
     } catch {
         Write-Host "Error while saving JSON file: $_"
     }
@@ -47,14 +48,14 @@ function Update-Config-JsonFile {
 
 # Create or update Tool Manifest
 $manifestPath =  (Join-Path -Path $MSBuildProjectDirectory -ChildPath "..") | Resolve-Path
-Write-Host "manifestPath: $manifestPath"
+Write-Verbose "manifestPath: $manifestPath"
 Set-Location -LiteralPath $manifestPath
 dotnet new tool-manifest
 dotnet tool install Cake.Tool --version 4.0.0
 
 $packageDirectory = (Join-Path -Path $MSBuildThisFileDirectory -ChildPath "..") | Resolve-Path
 
-# Adding current project configuration
+# Adding current project configuration in CakeRelease.settings.json
 $projectSettings = @{
     "Name" = "$MSBuildProjectName"
     "ProjectDirectory" = "$MSBuildProjectDirectory"
@@ -63,9 +64,7 @@ $projectSettings = @{
 }
 
 $cakeReleaseSettingsPath = Join-Path -Path $MSBuildProjectDirectory -ChildPath "../.config/CakeRelease.settings.json"
-Write-Host "cakeReleaseSettingsPath: $cakeReleaseSettingsPath"
-Write-Host "projectSettings: $($projectSettings)"
+Write-Verbose "cakeReleaseSettingsPath: $cakeReleaseSettingsPath"
+Write-Verbose "projectSettings: $($projectSettings)"
 
 Update-Config-JsonFile -NewObject $projectSettings -FilePath $cakeReleaseSettingsPath
-# $projectSettings.Name="test"
-# Update-Config-JsonFile -NewObject $projectSettings -FilePath $cakeReleaseSettingsPath

@@ -20,7 +20,23 @@ module.exports = {
             }
         ],
         
-        
+    // Set of Semantic-release plugins for publishing a GitHub release.
+    // Includes the packages from the artifacts folder as assets
+    [
+        '@semantic-release/github',
+        {
+            "assets": [
+                { "path": "Artifacts/*.nupkg" }
+            ]
+        }
+    ],
+                // Exec plugin uses to call dotnet nuget push to push the packages from
+        // the artifacts folder to NuGet
+        [
+            "@semantic-release/exec", {
+                "publishCmd": ".\\Scripts\\publishPackageToNuget.sh --token ${process.env.NUGET_TOKEN} --source ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}"
+            }
+        ]
     ],
     "branches": ["master", "next", { name: 'beta', prerelease: true }, { name: 'alpha', prerelease: true }]
 };

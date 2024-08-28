@@ -17,6 +17,7 @@ var gitVersion = Argument<string>("gitVersion", "");
 var semanticReleaseVersion = Argument<string>("semanticReleaseVersion", "");
 var buildPath = Argument<string>("buildPath", "");
 var nuspecFilePath = Argument<string>("nuspecFilePath", "");
+var packageSolution = Argument<bool>("packageSolution", true);
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -196,6 +197,7 @@ Task("Build solution")
  });
 
 Task("Package")
+    .WithCriteria(packageSolution)
     .Does(() =>
 {    
     foreach(var project in projects)

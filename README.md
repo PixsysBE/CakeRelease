@@ -34,10 +34,10 @@ In order to use **Cake Release** you need:
 
 - To have [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4) installed on Windows
 - To host your code in a [Git repository](https://git-scm.com)
-- Use a Continuous Integration service that allows you to [securely set up credentials](docs/usage/ci-configuration.md#authentication)
-- A Git CLI version that meets [our version requirement](docs/support/git-version.md) installed in your Continuous Integration environment
-- A [Node.js](https://nodejs.org) version that meets [our version requirement](docs/support/node-version.md) installed in your Continuous Integration environment
-- To install the [Cake .NET Tool](https://cakebuild.net/docs/getting-started/setting-up-a-new-scripting-project)
+- Use a Continuous Integration service that allows you to [securely set up credentials](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/ci-configuration.md#authentication)
+- A Git CLI version that meets [Semantic Release's version requirement](https://github.com/semantic-release/semantic-release/blob/master/docs/support/git-version.md) installed in your Continuous Integration environment
+- A [Node.js](https://nodejs.org) version that meets [Semantic Release's version requirement](https://github.com/semantic-release/semantic-release/blob/master/docs/support/node-version.md) installed in your Continuous Integration environment
+- To install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ## Installation
 
@@ -121,27 +121,31 @@ To remove your vault, run:
 ```powershell
 Unregister-SecretVault -Name YourVaultName
 ```
+### Bash script
 
-### Semantic-release
+**Cake Release** is using Bash scripts with Semantic Release, so make sure you can run these without issue (with [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) for instance).
 
-Go to your root folder and install semantic-release and its plugins :
+### Installing packages in your solution
 
-```powershell
-npm install
-```
+Once you added/updated cake release package into your solution, build it so the [.targets file](./src/CakeRelease/CakeRelease/build/CakeRelease.targets) will make sure everything you need is installed. This includes:
 
-You should have a folder structure similar to this :
+- Copy/Overwrite of files needed by Cake Release
+- Run of several Powershell scripts to create Cake Release project settings, make sure you you have npm packages,...
+
+> The first build might take some time as it will download and install the required npm packages. Check your Visual Studio output tab for more info.
+
+Go to your root folder, You should have a folder structure similar to this :
 
 ```
 ├── /src
 │   ├── <Project Name>
 │   │   ├── /.build
 │   │   │   ├── /CakeRelease
-│   │   │   │   ├── /Cake
-│   │   │   │   ├── /Git
-│   │   │   │   ├── /Powershell
-│   │   │   │   ├── /Semantic
-│   │   │   ├── cakerelease.ps1
+│   │   │   │   ├── cakerelease.ps1
+│   │   ├── /.config
+│   │   │   ├── .nuspec
+│   │   │   ├── CakeRelease.settings.json
+│   │   │   ├── dotnet-tools.json
 │   │   ├── /node_modules
 │   │   ├── Project.sln
 │   │   ├── package.json
@@ -150,13 +154,10 @@ You should have a folder structure similar to this :
 │   │   ├── <Tests Project Name>
 ```
 
-### Bash script
-
-**Cake Release** is using Bash scripts with Semantic Release, so make sure you can run these without issue (with [Git Bash](https://www.atlassian.com/git/tutorials/git-bash) for instance).
 
 ## Set up your nuspec file
 
-Set up your XML manifest to provide information and include files in your package. Rename the .config\nuspec.sample into .config\\.nuspec and start customizing it :
+Set up your XML manifest (located in your .config folder) to provide information and include files in your package:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -209,4 +210,4 @@ Optional parameters:
 
 ## For Cake Release developers: Autobuild
 
-You can use the --autobuild parameter so Cake Release can create its own release by itself. This parameter can also be used if you decide to move your .build and .config folders one level down at your project(.csproj) level.
+Use the --autobuild parameter so Cake Release can create its own release using himself!

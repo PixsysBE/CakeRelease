@@ -85,7 +85,12 @@ if ($LASTEXITCODE -ne 0) {
 
 # Set-Location -LiteralPath $cakePath
 Write-Verbose "build.cake path : $buildCakePath"
-dotnet cake $buildCakePath --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath --changelogVersion $packageJsonProperties.changelogVersion --execVersion $packageJsonProperties.execVersion --gitVersion $packageJsonProperties.gitVersion --semanticReleaseVersion $packageJsonProperties.semanticReleaseVersion
+$packageSolution = $true
+if((-not $createGithubRelease.IsPresent) -and (-not $publishToNuget.IsPresent) -and ([string]::IsNullOrWhiteSpace($publishToSource))){
+	$packageSolution = $false
+}
+
+dotnet cake $buildCakePath --projectName $nuspecProperties.Id --rootPath $rootPath --projectPath (Split-Path -Parent $csprojPath) --buildPath $buildPath --nuspecFilePath $nuspecFilePath --changelogVersion $packageJsonProperties.changelogVersion --execVersion $packageJsonProperties.execVersion --gitVersion $packageJsonProperties.gitVersion --semanticReleaseVersion $packageJsonProperties.semanticReleaseVersion --packageSolution=$packageSolution
 
 if ($LASTEXITCODE -ne 0) { 
 	Set-Location -LiteralPath $currentDirectory

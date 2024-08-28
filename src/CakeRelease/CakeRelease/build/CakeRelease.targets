@@ -6,30 +6,23 @@
         <NoOverwriteFiles Include= "$(MSBuildThisFileDirectory)..\.config\*.*" Exclude= "$(MSBuildThisFileDirectory)..\.config\dotnet-tools.json" />
     </ItemGroup>
 
-    <!-- Affiche les chemins pour le débogage -->
-    <Message Text="Source: @(RewriteFiles)" Importance="high" />
-    <Message Text="Source: @(NoOverwriteFiles)" Importance="high" />
-
-    <!-- <Copy
-    SourceFiles="@(NoOverwriteFiles)"
-    DestinationFolder="$(MSBuildProjectDirectory)\..\%(RecursiveDir)"
-    SkipUnchangedFiles="true"
-    OverwriteReadOnlyFiles="false"
-    Condition="!Exists('$(MSBuildProjectDirectory)\..\%(RecursiveDir)\%(Filename)%(Extension)')" />
-
-    <Copy
-      SourceFiles="@(RewriteFiles)"
-      DestinationFolder="$(MSBuildProjectDirectory)\..\%(RecursiveDir)"
-      SkipUnchangedFiles="false"
-      OverwriteReadOnlyFiles="true" /> -->
+    <!-- <Message Text="Source: @(RewriteFiles)" Importance="high" />
+    <Message Text="Source: @(NoOverwriteFiles)" Importance="high" /> -->
 
   </Target>
 
-  <Target Name="RunCustomPowerShellScript" BeforeTargets="Build">
+  <Target Name="RunInstallPowerShellScript" BeforeTargets="Build">
     <PropertyGroup>
-      <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\install.ps1</PSScriptPath>
+      <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\config.ps1</PSScriptPath>
     </PropertyGroup>
     <Exec Command="powershell -ExecutionPolicy Bypass -File $(PSScriptPath) -MSBuildThisFileDirectory $(MSBuildThisFileDirectory) -MSBuildProjectDirectory $(MSBuildProjectDirectory) -MSBuildProjectName $(MSBuildProjectName) -MSBuildProjectFile $(MSBuildProjectFile)" />
+  </Target>
+
+  <Target Name="RunNpmPowerShellScript" BeforeTargets="Build">
+    <PropertyGroup>
+      <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\npm.ps1</PSScriptPath>
+    </PropertyGroup>
+    <Exec Command="powershell -ExecutionPolicy Bypass -File $(PSScriptPath) -projectDirectory $(MSBuildProjectDirectory)" />
   </Target>
 
   <Target Name="CopyNuspec" BeforeTargets="Build">
@@ -38,8 +31,8 @@
       <NuspecTarget>$(MSBuildProjectDirectory)\..\.config\.nuspec</NuspecTarget>
     </PropertyGroup>
 
-    <Message Text="Nuspec Source: $(NuspecSource)" Importance="high" />
-    <Message Text="Nuspec Destination: $(NuspecTarget)" Importance="high" />
+    <!-- <Message Text="Nuspec Source: $(NuspecSource)" Importance="high" />
+    <Message Text="Nuspec Destination: $(NuspecTarget)" Importance="high" /> -->
 
     <Copy
     SourceFiles="$(NuspecSource)"
@@ -48,17 +41,16 @@
     OverwriteReadOnlyFiles="false"   
     Condition="!Exists($(NuspecTarget))"
     />
-     <!-- Condition="!Exists('$(MSBuildProjectDirectory)\..\%(NuspecSource.RecursiveDir)\%(Filename)%(Extension)')"  -->
-
   </Target>
+
   <Target Name="CopyLauncher" BeforeTargets="Build">
     <PropertyGroup>
       <LauncherSource>$(MSBuildThisFileDirectory)..\tools\launcher.ps1</LauncherSource>
-      <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\launcher.ps1</LauncherTarget>
+      <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\cakerelease.ps1</LauncherTarget>
     </PropertyGroup>
 
-    <Message Text="Launcher Source: $(LauncherSource)" Importance="high" />
-    <Message Text="Launcher Destination: $(LauncherTarget)" Importance="high" />
+    <!-- <Message Text="Launcher Source: $(LauncherSource)" Importance="high" />
+    <Message Text="Launcher Destination: $(LauncherTarget)" Importance="high" /> -->
 
     <Copy
     SourceFiles="$(LauncherSource)"
@@ -66,8 +58,5 @@
     SkipUnchangedFiles="false"
     OverwriteReadOnlyFiles="true"   
     />
-
   </Target>
-
-
 </Project>
