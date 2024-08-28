@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/PixsysBE/CakeRelease/compare/v1.10.4...v2.0.0) (2024-08-28)
+
+
+### Features
+
+* moved init script into targets file ([35d9e51](https://github.com/PixsysBE/CakeRelease/commit/35d9e51b16977e6dfe7f11fa9f5a2f2b5d3f2c62))
+* updated targets file ([ccfac7a](https://github.com/PixsysBE/CakeRelease/commit/ccfac7a64ffaffaff2d1cb0d1b599951816a3173))
+
+
+### BREAKING CHANGES
+
+* Most CakeRelease files are now located in the package and no more in the solution.
+
 # [2.0.0-beta.2](https://github.com/PixsysBE/CakeRelease/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2024-08-28)
 
 
