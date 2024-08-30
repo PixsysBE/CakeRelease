@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/PixsysBE/CakeRelease/compare/v2.0.0...v2.0.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* run Powershell or pwsh depending on environment ([f3e1bd0](https://github.com/PixsysBE/CakeRelease/commit/f3e1bd0ac857732efba6e89edb9449f1caff62ec))
+
 # [2.0.0](https://github.com/PixsysBE/CakeRelease/compare/v1.10.4...v2.0.0) (2024-08-28)
 
 
