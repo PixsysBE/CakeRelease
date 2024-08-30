@@ -1,31 +1,25 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="EnsurePowerShellFiles" BeforeTargets="Build">
-
-    <ItemGroup>
-        <RewriteFiles Include="$(MSBuildThisFileDirectory)..\.build\CakeRelease\*.*" Exclude="$(MSBuildThisFileDirectory)..\.build\CakeRelease\Semantic\docs\*.*" />
-        <NoOverwriteFiles Include= "$(MSBuildThisFileDirectory)..\.config\*.*" Exclude= "$(MSBuildThisFileDirectory)..\.config\dotnet-tools.json" />
-    </ItemGroup>
-
-    <!-- <Message Text="Source: @(RewriteFiles)" Importance="high" />
-    <Message Text="Source: @(NoOverwriteFiles)" Importance="high" /> -->
-
-  </Target>
-
-  <Target Name="RunInstallPowerShellScript" BeforeTargets="Build">
+  <Target Name="CakeReleaseRunConfigPowerShellScript" BeforeTargets="Build">
     <PropertyGroup>
       <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\config.ps1</PSScriptPath>
+      <IsRunningOnWindows Condition="'$(OS)' == 'Windows_NT'">true</IsRunningOnWindows>
+      <PowerShellCmd Condition="'$(IsRunningOnWindows)' == 'true'">powershell</PowerShellCmd>
+      <PowerShellCmd Condition="'$(IsRunningOnWindows)' != 'true'">pwsh</PowerShellCmd>
     </PropertyGroup>
-    <Exec Command="powershell -ExecutionPolicy Bypass -File $(PSScriptPath) -MSBuildThisFileDirectory $(MSBuildThisFileDirectory) -MSBuildProjectDirectory $(MSBuildProjectDirectory) -MSBuildProjectName $(MSBuildProjectName) -MSBuildProjectFile $(MSBuildProjectFile)" />
+    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSScriptPath) -MSBuildThisFileDirectory $(MSBuildThisFileDirectory) -MSBuildProjectDirectory $(MSBuildProjectDirectory) -MSBuildProjectName $(MSBuildProjectName) -MSBuildProjectFile $(MSBuildProjectFile)" />
   </Target>
 
-  <Target Name="RunNpmPowerShellScript" BeforeTargets="Build">
+  <Target Name="CakeReleaseRunNpmPowerShellScript" BeforeTargets="Build">
     <PropertyGroup>
       <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\npm.ps1</PSScriptPath>
+      <IsRunningOnWindows Condition="'$(OS)' == 'Windows_NT'">true</IsRunningOnWindows>
+      <PowerShellCmd Condition="'$(IsRunningOnWindows)' == 'true'">powershell</PowerShellCmd>
+      <PowerShellCmd Condition="'$(IsRunningOnWindows)' != 'true'">pwsh</PowerShellCmd>
     </PropertyGroup>
-    <Exec Command="powershell -ExecutionPolicy Bypass -File $(PSScriptPath) -projectDirectory $(MSBuildProjectDirectory)" />
+    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSScriptPath) -projectDirectory $(MSBuildProjectDirectory)" />
   </Target>
 
-  <Target Name="CopyNuspec" BeforeTargets="Build">
+  <Target Name="CakeReleaseCopyNuspec" BeforeTargets="Build">
     <PropertyGroup>
       <NuspecSource>$(MSBuildThisFileDirectory)..\.config\.nuspec.sample</NuspecSource>
       <NuspecTarget>$(MSBuildProjectDirectory)\..\.config\.nuspec</NuspecTarget>
@@ -39,11 +33,11 @@
     DestinationFiles="$(NuspecTarget)"
     SkipUnchangedFiles="true"
     OverwriteReadOnlyFiles="false"   
-    Condition="!Exists($(NuspecTarget))"
+    Condition="!Exists('$(NuspecTarget)')"
     />
   </Target>
 
-  <Target Name="CopyLauncher" BeforeTargets="Build">
+  <Target Name="CakeReleaseCopyLauncher" BeforeTargets="Build">
     <PropertyGroup>
       <LauncherSource>$(MSBuildThisFileDirectory)..\tools\launcher.ps1</LauncherSource>
       <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\cakerelease.ps1</LauncherTarget>
