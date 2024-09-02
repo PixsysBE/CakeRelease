@@ -56,10 +56,7 @@ $nuspecFilePath = Test-NuSpec-Exists -nuspecFilePath $nuspecFilePath -defaultPat
 Write-Verbose ("nuspecFilePath: $nuspecFilePath")
 
 # Git Hooks
-$gitHooksFolder=""
-if(-not $autoBuild.IsPresent){
-	$gitHooksFolder = (Join-Path -Path $launcherScriptDirectory -ChildPath  ".\Git\Hooks\") | Resolve-Path
-}
+$gitHooksFolder = (Join-Path -Path $launcherScriptDirectory -ChildPath  ".\Git\Hooks\") | Resolve-Path
 
 $csprojPath = Get-Csproj-Path -csprojPath $csprojPath
 $csprojTargetGitHooksCommitMsgPath = Get-Relative-Path-From-Absolute-Paths -fromPath (Split-Path -Parent $csprojPath) -toPath "${gitHooksFolder}commit-msg"

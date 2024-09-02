@@ -93,8 +93,8 @@
   </ItemGroup>
   <Target Name="CopyCakeReleaseGitHooks" AfterTargets="AfterBuild">
     <ItemGroup>
-      <_CustomFiles Include=".build\CakeRelease\Git\Hooks\commit-msg" />
+      <_CustomFiles Include=".\.build\CakeRelease\Git\Hooks\commit-msg" />
     </ItemGroup>
-    <Copy SourceFiles="@(_CustomFiles)" DestinationFolder="..\..\..\.git\hooks" />
+    <Copy SourceFiles="@(_CustomFiles)" DestinationFolder=".\..\..\..\.git\hooks" />
   </Target>
 </Project>
