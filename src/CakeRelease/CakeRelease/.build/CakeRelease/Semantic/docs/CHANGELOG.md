@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/PixsysBE/CakeRelease/compare/v2.0.1...v2.0.2) (2024-09-02)
+
+
+### Bug Fixes
+
+* Git Hooks path ([8cc0aa2](https://github.com/PixsysBE/CakeRelease/commit/8cc0aa279834ff071d945c1d29e2a0bb1413d164))
+* git hooks path in csproj + unified targets ([e13ab57](https://github.com/PixsysBE/CakeRelease/commit/e13ab57b374c014b8af057b4be3ff8b583c10116))
+
 ## [2.0.1](https://github.com/PixsysBE/CakeRelease/compare/v2.0.0...v2.0.1) (2024-08-30)
 
 
