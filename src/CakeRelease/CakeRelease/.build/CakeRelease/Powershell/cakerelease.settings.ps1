@@ -13,7 +13,7 @@ Write-Verbose ("mainConfigPath: $mainConfigPath")
 $releaseConfigDirectory = Join-Path -Path $launcherScriptDirectory -ChildPath ".\Semantic\Config\"
 Write-Verbose ("releaseConfigDirectory: $releaseConfigDirectory")
 $releaseConfigFileName = ".releaserc.js"
-$packageJsonPath = Join-Path -Path $launcherScriptDirectory -ChildPath "../../package.json"
+$packageJsonPath = Join-Path -Path $launcherScriptDirectory -ChildPath ".\Semantic\package.json"
 Write-Verbose ("packageJsonPath: $packageJsonPath")
 
 # Semantic Release config file

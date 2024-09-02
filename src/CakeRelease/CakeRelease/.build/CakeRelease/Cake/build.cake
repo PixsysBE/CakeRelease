@@ -136,8 +136,7 @@ Task("Get next semantic version number")
     .WithCriteria(shouldRelease || target == "Get next semantic version number" )
     .Does(() =>
 {
-        // Context.Environment.WorkingDirectory = semanticDirectory;
-        Context.Environment.WorkingDirectory = Directory(rootPath);
+        Context.Environment.WorkingDirectory = semanticDirectory;
         Information("Running semantic-release in dry run mode to extract next semantic version number");
 
         string[] semanticReleaseOutput;    

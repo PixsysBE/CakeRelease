@@ -136,8 +136,12 @@ foreach($packageToInstall in $PackagesToInstall)
 Pop-Location
 }
 
-$solutionDirectory =  (Join-Path -Path $projectDirectory -ChildPath "..") | Resolve-Path
-Write-Verbose "solutionDirectory: $solutionDirectory"
+$semanticDirectory =  (Join-Path -Path $projectDirectory -ChildPath "../.build/CakeRelease/Semantic/") 
+if(-not (test-path $semanticDirectory)){
+  New-Item -Path $semanticDirectory -ItemType Directory
+}
+
+Write-Verbose "semanticDirectory: $semanticDirectory"
 
 $projectName = "cakerelease"
 $packagesToInstall = @(
@@ -159,4 +163,4 @@ $packagesToInstall = @(
   }
 )
 
-Get-NpmPackage-Version -PackagesToInstall $packagesToInstall -Directory $solutionDirectory -ProjectName $projectName
+Get-NpmPackage-Version -PackagesToInstall $packagesToInstall -Directory ($semanticDirectory | Resolve-Path) -ProjectName $projectName
