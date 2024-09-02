@@ -60,7 +60,7 @@ $gitHooksFolder = (Join-Path -Path $launcherScriptDirectory -ChildPath  ".\Git\H
 
 $csprojPath = Get-Csproj-Path -csprojPath $csprojPath
 $csprojTargetGitHooksCommitMsgPath = Get-Relative-Path-From-Absolute-Paths -fromPath (Split-Path -Parent $csprojPath) -toPath "${gitHooksFolder}commit-msg"
-$csprojTargetGitHooksCommitMsgDestinationFolder = Find-GitFolder-Relative-Path -fromAbsolutePath $rootPath
+$csprojTargetGitHooksCommitMsgDestinationFolder = Find-GitFolder-Relative-Path -fromAbsolutePath (Split-Path -Parent $csprojPath)
 if ($null -eq $csprojTargetGitHooksCommitMsgDestinationFolder) {
     Write-Host ".git folder not found" -ForegroundColor Red
 	exit 1

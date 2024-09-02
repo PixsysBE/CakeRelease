@@ -446,10 +446,6 @@ function Find-GitFolder-Relative-Path {
     return Find-GitFolder-Relative-Path -currentPath $parentPath -relativePath (Join-Path ".." $relativePath) -fromAbsolutePath $fromAbsolutePath
 }
 
-
-$path = "c:\temp\test"
-
-$filename = "test.zip"
 <#
 .SYNOPSIS
 Creates folders structure if it does not exist

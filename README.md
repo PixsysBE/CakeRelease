@@ -159,6 +159,8 @@ Go to your root folder, You should have a folder structure similar to this :
 
 > This step is not needed if you don't create any Github release or publish to any Nuget source
 
+> Make sure your file encoding is UTF-8, Unix (LF) otherwise it might not work
+
 Set up your XML manifest (located in your .config folder) to provide information and include files in your package:
 
 ```xml
