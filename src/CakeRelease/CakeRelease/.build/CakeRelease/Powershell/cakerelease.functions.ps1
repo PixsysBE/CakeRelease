@@ -414,7 +414,9 @@ function Get-Relative-Path-From-Absolute-Paths {
     $relativePath += ($toParts[$commonLength..($toParts.Length - 1)] -join $separator)
 
     # Retire la barre oblique inverse finale si elle est présente
-    return $relativePath.TrimEnd($separator)
+    $trimmedRelativePath = $relativePath.TrimEnd($separator)
+
+    return ".\${trimmedRelativePath}"
 }
 
 

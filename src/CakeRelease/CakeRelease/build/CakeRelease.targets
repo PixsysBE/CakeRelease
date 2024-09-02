@@ -1,32 +1,32 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="CakeReleaseRunConfigPowerShellScript" BeforeTargets="Build">
+  <Target Name="CakeReleaseRunPowerShellScripts" BeforeTargets="Build">
     <PropertyGroup>
-      <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\config.ps1</PSScriptPath>
+      <PSConfigScriptPath>$(MSBuildThisFileDirectory)..\tools\config.ps1</PSConfigScriptPath>
+      <PSNpmScriptPath>$(MSBuildThisFileDirectory)..\tools\npm.ps1</PSNpmScriptPath>
       <IsRunningOnWindows Condition="'$(OS)' == 'Windows_NT'">true</IsRunningOnWindows>
       <PowerShellCmd Condition="'$(IsRunningOnWindows)' == 'true'">powershell</PowerShellCmd>
       <PowerShellCmd Condition="'$(IsRunningOnWindows)' != 'true'">pwsh</PowerShellCmd>
     </PropertyGroup>
-    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSScriptPath) -MSBuildThisFileDirectory $(MSBuildThisFileDirectory) -MSBuildProjectDirectory $(MSBuildProjectDirectory) -MSBuildProjectName $(MSBuildProjectName) -MSBuildProjectFile $(MSBuildProjectFile)" />
+    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSConfigScriptPath) -MSBuildThisFileDirectory $(MSBuildThisFileDirectory) -MSBuildProjectDirectory $(MSBuildProjectDirectory) -MSBuildProjectName $(MSBuildProjectName) -MSBuildProjectFile $(MSBuildProjectFile)" />
+    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSNpmScriptPath) -projectDirectory $(MSBuildProjectDirectory)" />
   </Target>
 
-  <Target Name="CakeReleaseRunNpmPowerShellScript" BeforeTargets="Build">
-    <PropertyGroup>
-      <PSScriptPath>$(MSBuildThisFileDirectory)..\tools\npm.ps1</PSScriptPath>
-      <IsRunningOnWindows Condition="'$(OS)' == 'Windows_NT'">true</IsRunningOnWindows>
-      <PowerShellCmd Condition="'$(IsRunningOnWindows)' == 'true'">powershell</PowerShellCmd>
-      <PowerShellCmd Condition="'$(IsRunningOnWindows)' != 'true'">pwsh</PowerShellCmd>
-    </PropertyGroup>
-    <Exec Command="$(PowerShellCmd) -ExecutionPolicy Bypass -File $(PSScriptPath) -projectDirectory $(MSBuildProjectDirectory)" />
-  </Target>
-
-  <Target Name="CakeReleaseCopyNuspec" BeforeTargets="Build">
+  <Target Name="CakeReleaseCopyFiles" BeforeTargets="Build">
     <PropertyGroup>
       <NuspecSource>$(MSBuildThisFileDirectory)..\.config\.nuspec.sample</NuspecSource>
       <NuspecTarget>$(MSBuildProjectDirectory)\..\.config\.nuspec</NuspecTarget>
+      <LauncherSource>$(MSBuildThisFileDirectory)..\tools\launcher.ps1</LauncherSource>
+      <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\cakerelease.ps1</LauncherTarget>
+      <GitSource>$(MSBuildThisFileDirectory)..\.build\CakeRelease\Git\</GitSource>
+      <GitHooksTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\Git\Hooks\</GitHooksTarget>
     </PropertyGroup>
 
-    <!-- <Message Text="Nuspec Source: $(NuspecSource)" Importance="high" />
-    <Message Text="Nuspec Destination: $(NuspecTarget)" Importance="high" /> -->
+     <ItemGroup>
+      <GitHooksSource Include="$(GitSource)**\Hooks\*.*" />
+    </ItemGroup>
+
+    <!-- <Message Text="Launcher Source: $(LauncherSource)" Importance="high" />
+    <Message Text="Launcher Destination: $(LauncherTarget)" Importance="high" /> -->
 
     <Copy
     SourceFiles="$(NuspecSource)"
@@ -35,16 +35,6 @@
     OverwriteReadOnlyFiles="false"   
     Condition="!Exists('$(NuspecTarget)')"
     />
-  </Target>
-
-  <Target Name="CakeReleaseCopyLauncher" BeforeTargets="Build">
-    <PropertyGroup>
-      <LauncherSource>$(MSBuildThisFileDirectory)..\tools\launcher.ps1</LauncherSource>
-      <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\cakerelease.ps1</LauncherTarget>
-    </PropertyGroup>
-
-    <!-- <Message Text="Launcher Source: $(LauncherSource)" Importance="high" />
-    <Message Text="Launcher Destination: $(LauncherTarget)" Importance="high" /> -->
 
     <Copy
     SourceFiles="$(LauncherSource)"
@@ -52,5 +42,12 @@
     SkipUnchangedFiles="false"
     OverwriteReadOnlyFiles="true"   
     />
+
+    <Copy
+    SourceFiles="@(GitHooksSource)"
+    DestinationFolder="$(GitHooksTarget)"
+    SkipUnchangedFiles="false"
+    OverwriteReadOnlyFiles="true"   
+    />    
   </Target>
 </Project>

@@ -2,9 +2,7 @@ $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 $env:DOTNET_NOLOGO = '1'
 
-# Relative path from PSScriptRoot
 $rootPathFolder = "../.."
-
 # Get root path (usually containing sln file)
 $rootPath = Use-Absolute-Path (Join-Path -Path $launcherScriptDirectory -ChildPath $rootPathFolder)
 Write-Verbose ("rootPath: $rootPath")
@@ -60,10 +58,11 @@ Write-Verbose ("nuspecFilePath: $nuspecFilePath")
 # Git Hooks
 $gitHooksFolder=""
 if(-not $autoBuild.IsPresent){
-	$gitHooksFolder = (Join-Path -Path $cakeReleaseScriptDirectory -ChildPath ".\..\..\") | Resolve-Path
+	$gitHooksFolder = (Join-Path -Path $launcherScriptDirectory -ChildPath  ".\Git\Hooks\") | Resolve-Path
 }
 
-$csprojTargetGitHooksCommitMsgPath = "${gitHooksFolder}.build\CakeRelease\Git\Hooks\commit-msg"
+$csprojPath = Get-Csproj-Path -csprojPath $csprojPath
+$csprojTargetGitHooksCommitMsgPath = Get-Relative-Path-From-Absolute-Paths -fromPath (Split-Path -Parent $csprojPath) -toPath "${gitHooksFolder}commit-msg"
 $csprojTargetGitHooksCommitMsgDestinationFolder = Find-GitFolder-Relative-Path -fromAbsolutePath $rootPath
 if ($null -eq $csprojTargetGitHooksCommitMsgDestinationFolder) {
     Write-Host ".git folder not found" -ForegroundColor Red

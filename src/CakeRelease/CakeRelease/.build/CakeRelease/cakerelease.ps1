@@ -60,7 +60,6 @@ $nuspecProperties = Confirm-Nuspec-Properties -filePath $nuspecFilePath
 $packageJsonProperties = Confirm-Package-Json-Properties -filePath $packageJsonPath -packageId $nuspecProperties.Id
 
 # Git Hooks
-$csprojPath = Get-Csproj-Path -csprojPath $csprojPath
 Copy-Git-Hooks -filePath $csprojPath -includePath $csprojTargetGitHooksCommitMsgPath -destinationFolder $csprojTargetGitHooksCommitMsgDestinationFolder
 
 # Ensure csproj has all the properties needed
