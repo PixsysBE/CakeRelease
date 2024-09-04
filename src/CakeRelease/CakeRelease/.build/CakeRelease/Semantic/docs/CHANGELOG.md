@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/PixsysBE/CakeRelease/compare/v2.1.0...v2.1.1) (2024-09-04)
+
+
+### Bug Fixes
+
+* excluded node_modules from autobuild nuspec ([7de7021](https://github.com/PixsysBE/CakeRelease/commit/7de7021bda4dbac7ec122d61195a5d5edf3b2605))
+
 # [2.1.0](https://github.com/PixsysBE/CakeRelease/compare/v2.0.2...v2.1.0) (2024-09-04)
 
 
