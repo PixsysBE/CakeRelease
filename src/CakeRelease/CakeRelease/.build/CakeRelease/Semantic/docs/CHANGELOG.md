@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/PixsysBE/CakeRelease/compare/v2.0.2...v2.1.0) (2024-09-04)
+
+
+### Bug Fixes
+
+* Find-GitFolder-Relative-Path ([b1e257a](https://github.com/PixsysBE/CakeRelease/commit/b1e257a5fa7d2368e6a840ed5c0133cf504bc129))
+
+
+### Features
+
+* moved package.json to Semantic directory ([60db7ab](https://github.com/PixsysBE/CakeRelease/commit/60db7abb322e58b1d2e4c6f4292f27f838cd1f3c))
+
 ## [2.0.2](https://github.com/PixsysBE/CakeRelease/compare/v2.0.1...v2.0.2) (2024-09-02)
 
 
