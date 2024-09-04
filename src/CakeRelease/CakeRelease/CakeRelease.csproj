@@ -15,6 +15,7 @@
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Git.4.0.0\lib\net7.0\Cake.Git.xml" />
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Git.4.0.0\lib\net8.0\Cake.Git.xml" />
     <Content Include=".build\CakeRelease\Cake\tools\Addins\Cake.Npx.1.7.0\cake-contrib-medium.png" />
+    <None Include=".build\CakeRelease\Semantic\package.json" />
     <Content Include=".config\dotnet-tools.json">
     </Content>
   </ItemGroup>
@@ -78,18 +79,12 @@
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\nuget.js" />
     <None Include=".build\CakeRelease\Semantic\Scripts\publishPackageToNuget.sh" />
-    <None Include=".config\nuspec.sample" />
-    <None Include=".config\release.nuspec" />
+    <None Include=".config\.nuspec.sample" />
+    <None Include=".config\autoBuild.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".build\CakeRelease\Semantic\Artifacts\" />
     <Folder Include=".build\CakeRelease\Semantic\docs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="package.json">
-    </None>
-    <None Update="Tools\init.ps1">
-    </None>
   </ItemGroup>
   <Target Name="CopyCakeReleaseGitHooks" AfterTargets="AfterBuild">
     <ItemGroup>
