@@ -10,11 +10,14 @@ $semanticConfigPath = Join-Path -Path $cakeReleaseScriptDirectory -ChildPath ".\
 Write-Verbose ("semanticConfigPath: $semanticConfigPath")
 $mainConfigPath = Join-Path -Path $semanticConfigPath -ChildPath ".\main.js"
 Write-Verbose ("mainConfigPath: $mainConfigPath")
-$releaseConfigDirectory = Join-Path -Path $launcherScriptDirectory -ChildPath ".\Semantic\Config\"
-Write-Verbose ("releaseConfigDirectory: $releaseConfigDirectory")
-$releaseConfigFileName = ".releaserc.js"
-$packageJsonPath = Join-Path -Path $launcherScriptDirectory -ChildPath ".\Semantic\package.json"
+$semanticScriptsPath = Join-Path -Path $cakeReleaseScriptDirectory -ChildPath ".\Semantic\Scripts\"
+Write-Verbose ("semanticScriptsPath: $semanticScriptsPath")
+$semanticDirectory = Join-Path -Path $launcherScriptDirectory -ChildPath ".\Semantic\"
+Write-Verbose ("semanticDirectory: $semanticDirectory")
+$semanticReleaseRcFileName = ".releaserc.js"
+$packageJsonPath = Join-Path -Path $semanticDirectory -ChildPath ".\package.json"
 Write-Verbose ("packageJsonPath: $packageJsonPath")
+$env:PUBLISH_PACKAGE_TO_NUGET_SCRIPT = Format-With-Double-Backslash -string ".\Scripts\publishPackageToNuget.sh"
 
 # Semantic Release config file
 $githubConfig = $null

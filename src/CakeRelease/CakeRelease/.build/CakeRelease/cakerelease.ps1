@@ -68,12 +68,10 @@ Confirm-csproj-properties -filePath $csprojPath
 # Create Semantic release config file based on parameters
 $releaseConfig = (Get-Content -Path $mainConfigPath) -replace "{%GITHUB%}", $githubConfig
 $releaseConfig = $releaseConfig -replace "{%NUGET%}", $nugetConfig
-Confirm-Folder-Structure -path $releaseConfigDirectory -filename $releaseConfigFileName
-Out-File -FilePath "$releaseConfigDirectory\$releaseConfigFileName" -InputObject $releaseConfig -encoding UTF8
+Confirm-Folder-Structure -path $semanticDirectory -filename $semanticReleaseRcFileName
+Out-File -FilePath "$semanticDirectory\$semanticReleaseRcFileName" -InputObject $releaseConfig -encoding UTF8
 
 # Cake build
-# $test = Get-Location
-# Write-Verbose "location before tool restore : $test"
 Set-Location -LiteralPath $rootPath
 
 dotnet tool restore

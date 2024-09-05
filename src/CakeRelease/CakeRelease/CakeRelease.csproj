@@ -72,7 +72,6 @@
     </None>
     <None Include=".build\CakeRelease\Powershell\cakerelease.functions.ps1" />
     <None Include=".build\CakeRelease\Powershell\cakerelease.settings.ps1" />
-    <None Include=".build\CakeRelease\Semantic\.releaserc.js" />
     <None Include=".build\CakeRelease\Semantic\Config\github.js">
     </None>
     <None Include=".build\CakeRelease\Semantic\Config\main.js">

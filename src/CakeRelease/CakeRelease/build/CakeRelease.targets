@@ -19,10 +19,16 @@
       <LauncherTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\cakerelease.ps1</LauncherTarget>
       <GitSource>$(MSBuildThisFileDirectory)..\.build\CakeRelease\Git\</GitSource>
       <GitHooksTarget>$(MSBuildProjectDirectory)\..\.build\CakeRelease\Git\Hooks\</GitHooksTarget>
+      <SemanticScriptsSourceFolder>$(MSBuildThisFileDirectory)..\.build\CakeRelease\Semantic\Scripts\</SemanticScriptsSourceFolder>
+      <SemanticScriptsTargetFolder>$(MSBuildProjectDirectory)\..\.build\CakeRelease\Semantic\Scripts\</SemanticScriptsTargetFolder>
     </PropertyGroup>
 
      <ItemGroup>
       <GitHooksSource Include="$(GitSource)**\Hooks\*.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <SemanticScriptsSourceFiles Include="$(SemanticScriptsSourceFolder)**\*.*" />
     </ItemGroup>
 
     <!-- <Message Text="Launcher Source: $(LauncherSource)" Importance="high" />
@@ -49,5 +55,12 @@
     SkipUnchangedFiles="false"
     OverwriteReadOnlyFiles="true"   
     />    
+
+    <Copy
+    SourceFiles="@(SemanticScriptsSourceFiles)"
+    DestinationFolder="$(SemanticScriptsTargetFolder)"
+    SkipUnchangedFiles="false"
+    OverwriteReadOnlyFiles="true"   
+    />
   </Target>
 </Project>
