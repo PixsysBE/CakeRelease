@@ -10,7 +10,7 @@ while [ $# -gt 0 ]; do
       if [[ "$1" != *=* ]]; then shift; fi
       NUGET_SOURCE="${1#*=}"
       ;;
-    --sourcekey*|-sk*)
+    --key*|-sk*)
       if [[ "$1" != *=* ]]; then shift; fi
       NUGET_SOURCE_KEY="${1#*=}"
       ;;      
