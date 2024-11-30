@@ -206,7 +206,8 @@ Optional parameters:
 | --------------------------- | ------------------ | ------------------------- |
 | createGithubRelease         |                    | Creates a Github release  |                                                                                                               |
 | publishToNuget | | Publish package to Nuget |
-| publishToSource | &lt;Nuget source&gt;    | Publish package to your Nuget source |
+| publishToSource | &lt;Nuget source&gt;    | Your Nuget source url |
+| publishToSourceKey |    | Your Nuget source key |
 | autoBuild | | See [Autobuild section](#for-cake-release-developers-autobuild) |
 | csprojPath | &lt;csproj path&gt; | Path to your .csproj |
 | nuspecFilePath | &lt;nuspec path&gt; | Path to your .nuspec |

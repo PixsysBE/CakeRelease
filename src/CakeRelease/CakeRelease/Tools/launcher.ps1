@@ -9,6 +9,7 @@ param (
 	[string]$vault,
 	[switch]$publishToNuget,
 	[string]$publishToSource="",
+	[string]$publishToSourceKey="",
 	[switch]$createGithubRelease,
 	[switch]$autoBuild,
 	[string]$csprojPath,
@@ -43,7 +44,7 @@ if (Test-Path -Path $projectSettingsPath) {
         $cakeReleaseScriptPath = (Join-Path -Path $projectSettings.PackageDirectory -ChildPath ".build/CakeRelease/cakerelease.ps1") | Resolve-Path
         Write-Verbose "cakeReleaseScriptPath: $cakeReleaseScriptPath"
 		# Launch Cake Release script located in package
-        & $cakeReleaseScriptPath -launcherScriptDirectory $launcherScriptDirectory -securePasswordPath $securePasswordPath -vault $vault -publishToNuget:$publishToNuget -publishToSource $publishToSource -createGithubRelease:$createGithubRelease -autoBuild:$autoBuild -csprojPath $csprojPath -nuspecFilePath $nuspecFilePath
+        & $cakeReleaseScriptPath -launcherScriptDirectory $launcherScriptDirectory -securePasswordPath $securePasswordPath -vault $vault -publishToNuget:$publishToNuget -publishToSource $publishToSource -publishToSourceKey $publishToSourceKey -createGithubRelease:$createGithubRelease -autoBuild:$autoBuild -csprojPath $csprojPath -nuspecFilePath $nuspecFilePath
     } else {
         Write-Host "Settings not found with name $projectName. Please specify your project name (You can check your settings here : $projectSettingsPath)" -ForegroundColor Red
     }    

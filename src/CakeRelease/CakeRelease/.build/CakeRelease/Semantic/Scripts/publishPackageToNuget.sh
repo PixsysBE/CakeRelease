@@ -10,6 +10,10 @@ while [ $# -gt 0 ]; do
       if [[ "$1" != *=* ]]; then shift; fi
       NUGET_SOURCE="${1#*=}"
       ;;
+    --sourcekey*|-sk*)
+      if [[ "$1" != *=* ]]; then shift; fi
+      NUGET_SOURCE_KEY="${1#*=}"
+      ;;      
     *)
       >&2 printf "Error: Invalid argument\n"
       exit 1
@@ -29,6 +33,10 @@ fi
 echo "checking if release must be published to custom Nuget source..."
 
 if [[ $NUGET_SOURCE != "" ]]; then
-	result=$(dotnet nuget push .\\Artifacts\\*.nupkg -s $NUGET_SOURCE)
+  if [[ $NUGET_SOURCE_KEY != "" ]]; then
+	result=$(dotnet nuget push .\\Artifacts\\*.nupkg -s $NUGET_SOURCE -k $NUGET_SOURCE_KEY)
+  else
+  result=$(dotnet nuget push .\\Artifacts\\*.nupkg -s $NUGET_SOURCE)
+  fi
 	echo $result
 fi
