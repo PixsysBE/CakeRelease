@@ -6,14 +6,14 @@ while [ $# -gt 0 ]; do
       if [[ "$1" != *=* ]]; then shift; fi # Value is next arg if no `=`
       NUGET_TOKEN="${1#*=}"
       ;;
-    --source*|-s*)
-      if [[ "$1" != *=* ]]; then shift; fi
-      NUGET_SOURCE="${1#*=}"
-      ;;
-    --key*|-sk*)
+    --sourcekey|-sk)
       if [[ "$1" != *=* ]]; then shift; fi
       NUGET_SOURCE_KEY="${1#*=}"
       ;;      
+    --source|-s)
+      if [[ "$1" != *=* ]]; then shift; fi
+      NUGET_SOURCE="${1#*=}"
+      ;;
     *)
       >&2 printf "Error: Invalid argument\n"
       exit 1
