@@ -33,7 +33,9 @@ fi
 echo "checking if release must be published to custom Nuget source..."
 
 if [[ $NUGET_SOURCE != "" ]]; then
+  echo "Nuget Source:" $NUGET_SOURCE
   if [[ $NUGET_SOURCE_KEY != "" ]]; then
+  echo "Nuget Source key:" $NUGET_SOURCE_KEY
 	result=$(dotnet nuget push .\\Artifacts\\*.nupkg -k $NUGET_SOURCE_KEY -s $NUGET_SOURCE)
   else
   result=$(dotnet nuget push .\\Artifacts\\*.nupkg -s $NUGET_SOURCE)
