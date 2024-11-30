@@ -40,3 +40,5 @@ if [[ $NUGET_SOURCE != "" ]]; then
   fi
 	echo $result
 fi
+
+read -r -p "Enter to quit" input
