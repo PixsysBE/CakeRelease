@@ -13,12 +13,12 @@ module.exports = {
         //"@semantic-release/npm",
 
         // Git plugin is need so the changelog file will be committed to the Git repository and available on subsequent builds in order to be updated.
-        [
-            "@semantic-release/git",
-            {
-              "assets": ["docs/CHANGELOG.md"]
-            }
-        ],
+        // [
+        //     "@semantic-release/git",
+        //     {
+        //       "assets": ["docs/CHANGELOG.md"]
+        //     }
+        // ],
         
     // Set of Semantic-release plugins for publishing a GitHub release.
     // Includes the packages from the artifacts folder as assets
@@ -34,7 +34,7 @@ module.exports = {
         // the artifacts folder to NuGet
         [
             "@semantic-release/exec", {
-                "publishCmd": ".\\Scripts\\publishPackageToNuget.sh --token ${process.env.NUGET_TOKEN} --source ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE}"
+                "publishCmd": "${process.env.PUBLISH_PACKAGE_TO_NUGET_SCRIPT} --token ${process.env.NUGET_TOKEN} --source ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE} --sourcekey ${process.env.PUBLISH_PACKAGE_TO_NUGET_SOURCE_KEY}"
             }
         ]
     ],
